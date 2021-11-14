@@ -12,7 +12,7 @@ export default class App extends Component{
     return (
       <div id="app">
         {user ? <AuthenticatedApp/> : <UnauthenticatedApp/>}
-        {/*<AuthenticatedApp/>*/}
+        {/* <AuthenticatedApp/> */}
       </div>
     )
   }

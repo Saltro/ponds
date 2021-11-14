@@ -5,13 +5,13 @@ export default class Task extends Component {
   render() {
     const { taskInfo } = this.props
     return (
-      <Fragment>
+      <>
         {
           taskInfo.map(item => <PondTaskItem key={item.id}>
             {item.finish ? <s>{item.describe}</s> : item.describe}
           </PondTaskItem>)
         }
-      </Fragment>
+      </>
     );
   }
 }

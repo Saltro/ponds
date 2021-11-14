@@ -6,7 +6,7 @@ import './index.css'
 export default class AuthenticatedApp extends Component {
   render() {
     return (
-      <div id={"authenticated-app"}>
+      <div id="authenticated-app">
         <Menu/>
         <Container/>
       </div>

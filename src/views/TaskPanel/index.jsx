@@ -50,6 +50,10 @@ export default class TaskPanel extends Component {
     ]
   }
 
+  componentDidMount() {
+    this.classify(taskInfo)
+  }
+
   classify = (taskInfo) => {
     const {ponds} = this.state
     ponds.forEach(ponds => {
@@ -60,13 +64,14 @@ export default class TaskPanel extends Component {
     })
   }
 
-  getTaskInfo = (task) => {
-    // const {ponds} = this.state
-    // const pond = ponds.find(pond => pond.id === task.id)
-  }
-
-  componentDidMount() {
-    this.classify(taskInfo)
+  classify = (taskInfo) => {
+    const {ponds} = this.state
+    ponds.forEach(ponds => {
+      ponds.tasks = taskInfo.filter(task => task.belong === ponds.id)
+    })
+    this.setState({
+      ponds
+    })
   }
 
   render () {
@@ -75,7 +80,7 @@ export default class TaskPanel extends Component {
       <div id='task-panel'>
         {
           ponds.map(pond => {
-            return <Pond key={pond.id} {...pond}></Pond>
+            return <Pond key={pond.id} {...pond} />
           })
         }
       </div>

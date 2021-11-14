@@ -13,10 +13,10 @@ export default class Container extends Component {
       <div id="container">
         <Suspense fallback={<Loading/>}>
           <Switch>
-            <Route path={"/task"} component={TaskPanel}/>
-            <Route path={"/quadrant"} component={QuadrantPanel}/>
-            <Route path={"/analysis"} component={AnalysisPanel}/>
-            <Redirect to={"/task"}/>
+            <Route path="/task" component={TaskPanel}/>
+            <Route path="/quadrant" component={QuadrantPanel}/>
+            <Route path="/analysis" component={AnalysisPanel}/>
+            <Redirect to="/task"/>
           </Switch>
         </Suspense>
       </div>

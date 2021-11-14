@@ -1,24 +1,24 @@
-import request from '../utils/request'
+import request from '../utils/request';
 
-export function login (data) {
+export function login(data) {
   return request({
     url: '/user/login',
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 
-export function register (data) {
+export function register(data) {
   return request({
     url: '/user/register',
     method: 'post',
-    data
-  })
+    data,
+  });
 }
 
-export function me () {
+export function me() {
   return request({
     url: '/user/me',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }

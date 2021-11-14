@@ -49,7 +49,7 @@ export default class Pond extends Component {
           <Task taskInfo={tasks}/>
         </div>
         <div id="add-task" className={id} onClick={this.showModal}>
-          <i className='iconfont icon-tianjia'></i>添加新任务
+          <i className='iconfont icon-tianjia' />添加新任务
         </div>
         <ConfigProvider locale={zh_CN}>
           <Modal title={"新建任务 | " + this.props.name} visible={isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
