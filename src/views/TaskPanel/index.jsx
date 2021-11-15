@@ -1,6 +1,9 @@
 import React,{Component} from 'react'
-import Pond from "./components/pond";
+import {Pond} from "./components/pond";
+import {DragDropContext} from "react-beautiful-dnd";
+import {Drag, Drop, DropChild} from "../../components/DragAndDrop";
 import './idnex.css'
+import styled from "@emotion/styled";
 
 const taskInfo = [
   {id:1,describe:'吃饭饭', finish: true, belong: 'plan-pond'},
@@ -64,26 +67,31 @@ export default class TaskPanel extends Component {
     })
   }
 
-  classify = (taskInfo) => {
-    const {ponds} = this.state
-    ponds.forEach(ponds => {
-      ponds.tasks = taskInfo.filter(task => task.belong === ponds.id)
-    })
-    this.setState({
-      ponds
-    })
-  }
-
   render () {
     const { ponds } = this.state
     return (
-      <div id='task-panel'>
-        {
-          ponds.map(pond => {
-            return <Pond key={pond.id} {...pond} />
-          })
-        }
-      </div>
+      <DragDropContext onDragEnd={() => {}}>
+        <div id='task-panel'>
+          <Drop type='COLUMN' direction='horizontal' droppableId='drop-pond'>
+            <MyDropChild>
+              {ponds?.map((pond, idx) => (
+                <Drag key={pond.id} draggableId={'drag-' + pond.id} index={idx}>
+                  <Pond key={pond.id} {...pond}/>
+                </Drag>))}
+            </MyDropChild>
+          </Drop>
+        </div>
+      </DragDropContext>
     )
   }
 }
+
+const MyDropChild = styled(DropChild)`
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-between;
+  flex-wrap: wrap;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0.5rem;
+`

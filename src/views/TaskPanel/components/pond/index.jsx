@@ -1,66 +1,69 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import { ConfigProvider, Modal, Input, DatePicker, Slider } from 'antd'
 import zh_CN from 'antd/lib/locale-provider/zh_CN'
-import Task from '../task'
+import styled from "@emotion/styled";
 import './index.css'
 
-export default class Pond extends Component {
-  state = {
-    isModalVisible: false,
-    taskValue: '',
-    importanceValue: 0,
-    urgencyValue: 0
+export const Pond = React.forwardRef(({ id, name, tasks, ...props },  ref) => {
+  const { RangePicker } = DatePicker
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [importanceValue, setImportanceValue] = useState(0)
+  const [urgencyValue, setUrgencyValue] = useState(0)
+  const [taskValue, setTaskValue] = useState('')
+
+  const showModal = () => {
+    setIsModalVisible(true)
   }
 
-  showModal = () => {
-    this.setState({
-      isModalVisible: true
-    })
+  const handleOk = () => {
+    setIsModalVisible(false)
   }
 
-  handleOk = () => {
-    this.setState({
-      isModalVisible: false
-    })
+  const handleCancel = () => {
+    setIsModalVisible(true)
   }
 
-  handleCancel = () => {
-    this.setState({
-      isModalVisible: false
-    })
+  const handleTaskValue = (taskValue) => () => {
+    setTaskValue(taskValue)
   }
 
-  handleTaskValue = (taskValue) => () => {
-    this.setState({
-      taskValue
-    })
+  const handleChange = () => {
+    setImportanceValue(1)
+    setUrgencyValue(2)
   }
 
-  handleChange = () => {}
-
-  render() {
-    const { isModalVisible, importanceValue, urgencyValue, taskValue } = this.state
-    const { id, name, tasks } = this.props
-    const { RangePicker } = DatePicker
-    return (
-      <div className='pond' id={id}>
-        <div id="task-header" className={id}>{`${name} ${tasks.filter(task => task.finish).length}/${tasks.length}`}</div>
-        <div id='task-container' className={id}>
-          <Task taskInfo={tasks}/>
-        </div>
-        <div id="add-task" className={id} onClick={this.showModal}>
-          <i className='iconfont icon-tianjia' />添加新任务
-        </div>
-        <ConfigProvider locale={zh_CN}>
-          <Modal title={"新建任务 | " + this.props.name} visible={isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
-            <Input placeholder="任务描述" value={taskValue} style={{marginBottom: '15px'}} onChange={e => this.handleTaskValue(e.value)}/>
-            <RangePicker style={{marginBottom: '5px'}}/>
-            <Slider min={-5} max={5} onChange={this.handleChange} value={importanceValue} style={{marginBottom: '15px'}}/>
-            <Slider min={-5} max={5} onChange={this.handleChange} value={urgencyValue} />
-          </Modal>
-        </ConfigProvider>
+  return (
+    <div {...props} className='pond' id={id} ref={ref}>
+      <div id="task-header" className={id}>{`${name} ${tasks.filter(task => task.finish).length}/${tasks.length}`}</div>
+      <div id='task-container' className={id}>
+        {
+          tasks.map(item => <PondTaskItem key={item.id}>
+            {item.finish ? <s>{item.describe}</s> : item.describe}
+          </PondTaskItem>)
+        }
       </div>
-    );
-  }
-}
+      <div id="add-task" className={id} onClick={showModal}>
+        <i className='iconfont icon-tianjia' />添加新任务
+      </div>
+      <ConfigProvider locale={zh_CN}>
+        <Modal title={"新建任务 | " + name} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+          <Input placeholder="任务描述" value={taskValue} style={{marginBottom: '15px'}} onChange={e => handleTaskValue(e.value)}/>
+          <RangePicker style={{marginBottom: '5px'}}/>
+          <Slider min={-5} max={5} onChange={handleChange} value={importanceValue} style={{marginBottom: '15px'}}/>
+          <Slider min={-5} max={5} onChange={handleChange} value={urgencyValue} />
+        </Modal>
+      </ConfigProvider>
+    </div>
+  );
+})
 
+const PondTaskItem = styled.div`
+  width: 100%;
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 0.8rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  :last-child {
+    margin-bottom: 0;
+  }
+`
