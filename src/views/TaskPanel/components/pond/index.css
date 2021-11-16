@@ -1,18 +1,20 @@
 .pond {
-  width: calc((100vw - 8.2rem) / 5);
+  /* width: calc((100vw - 8.2rem) / 5); */
+  min-width: 18vw;
   height: calc((100vh - 2rem)/2);
   position: relative;
   /*border: 1px solid black;*/
+  flex: 1;
 }
 
 /* 7.2rem = 4.2rem(menu) + 1rem(padding) + 2rem(margin) */
-.pond:nth-child(6) {
+/* .pond:nth-child(6) {
   width: calc((100vw - 7.2rem) / 2);
 }
 
 .pond:nth-child(7) {
   width: calc((100vw - 7.2rem) / 2);
-}
+} */
 
 #task-header {
   color: #2B344B;
