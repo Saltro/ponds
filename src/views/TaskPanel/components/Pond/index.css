@@ -34,10 +34,10 @@
   align-items: flex-start;
   width: 100%;
   max-height: calc(48vh - 8.5rem);
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 #task-container:hover {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 #task-container::-webkit-scrollbar {
   /*滚动条整体样式*/

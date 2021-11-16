@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {AuthProvider} from "./auth-context";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-export default class AppProviders extends Component {
-  render() {
-    const { children } = this.props
-    return (
+export const AppProviders = ({children}) => {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>{children}</AuthProvider>
-    );
-  }
+    </QueryClientProvider>
+  );
 }

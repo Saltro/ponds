@@ -1,11 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import * as auth from '../network/user'
 import { isExist, setToken, removeToken } from "../utils/auth";
+import { useQueryClient } from "react-query";
 
 export const AuthContext = React.createContext(undefined)
 AuthContext.displayName = "AuthContext"
 
 export const AuthProvider = ({children}) => {
+  const queryClient = useQueryClient();
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -41,6 +43,7 @@ export const AuthProvider = ({children}) => {
   const logout = () => {
     removeToken()
     setUser(null)
+    queryClient.clear()
   }
 
   useEffect(() => {
@@ -57,5 +60,12 @@ export const AuthProvider = ({children}) => {
       {children}
     </AuthContext.Provider>
   )
-
 }
+
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth必须在AuthProvider中使用");
+  }
+  return context;
+};

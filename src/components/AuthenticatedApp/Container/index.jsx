@@ -1,6 +1,6 @@
 import React, {Component, lazy, Suspense} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
-import TaskPanel from "../../../views/TaskPanel";
+import {TaskPanel} from "../../../views/TaskPanel";
 import Loading from '../../../views/Loading'
 import './index.css'
 
