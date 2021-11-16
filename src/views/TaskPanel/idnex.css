@@ -1,38 +1,37 @@
 #task-panel {
-  display: flex;
-  justify-content: space-evenly;
-  align-content: space-between;
-  flex-wrap: wrap;
-  height: 100vh;
+  /* display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; */
+  height: 100%;
   overflow: hidden;
   padding: 0.5rem;
 }
 
-/*.plan-pond {*/
+/*.plan-Pond {*/
 /*  background-color: rgba(255, 235, 59, 1);*/
 /*}*/
 
-/*.ready-pond {*/
+/*.ready-Pond {*/
 /*  background-color: rgba(255, 195, 0, 1);*/
 /*}*/
 
-/*.accept-pond {*/
+/*.accept-Pond {*/
 /*  background-color: rgba(255, 141, 26, 1);*/
 /*}*/
 
-/*.bock-pond {*/
+/*.bock-Pond {*/
 /*  background-color: rgba(42, 130, 228, 1);*/
 /*}*/
 
-/*.sauce-pond {*/
+/*.sauce-Pond {*/
 /*  background-color: rgba(172, 51, 193, 1);*/
 /*}*/
 
-/*.execute-pond {*/
+/*.execute-Pond {*/
 /*  background-color: rgba(212, 48, 48, 1);*/
 /*}*/
 
-/*.finish-pond {*/
+/*.finish-Pond {*/
 /*  background-color: rgba(67, 207, 124, 1);*/
 /*}*/
 

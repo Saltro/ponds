@@ -1,0 +1,45 @@
+#analysis-panel {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar-container {
+  flex: 1;
+  padding: 0 1rem 0 0;
+}
+
+#calendar-heatmap {
+  padding: 2.5rem 2rem 0 1rem;
+  border-radius: 1rem;
+  border: 1px solid #E0E0E0;
+}
+
+.statistics-container {
+  padding: 1rem 3rem;
+  max-width: 20vw;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-left: solid 1px #E0E0E0;
+}
+
+.statistics-container .statistics-card {
+  font-size: 1.5rem;
+  color: #505050;
+  padding: 0.5rem 1.5rem;
+  border: solid 1px #E0E0E0;
+  border-radius: 0.5rem;
+  background-color: #EFF3FC;
+  box-shadow: 3px 3px 10px rgb(0 0 0 / 15%)
+}
+
+.statistics-card .number {
+  display: inline-block;
+  font-size: 2rem;
+  margin: 0 0.5rem;
+  color: #eb6464
+}
