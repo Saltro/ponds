@@ -1,5 +1,6 @@
 #container{
   flex: 1;
   height: 100%;
+  width: calc(100vw - 4.2rem);
   /*background: pink;*/
 }
