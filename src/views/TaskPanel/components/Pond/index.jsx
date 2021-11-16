@@ -1,6 +1,6 @@
 import React from 'react';
 import {useQuery} from "react-query";
-// import {Drag, Drop, DropChild} from "../../../../components/DragAndDrop";
+import {Drag, Drop, DropChild} from "../../../../components/DragAndDrop";
 import styled from "@emotion/styled";
 import {Card} from "antd";
 import {getTaskList} from '../../../../network/task'
@@ -21,22 +21,37 @@ const TaskCard = (props) => {
   )
 }
 
-export const Pond = ({pond, user, toggleEditModal}) => {
-  const {data: res} = useQuery(['tasks', user], () =>
-    getTaskList(user.id)
+export const useTasks = (id) => {
+  const {data: res} = useQuery(['tasks'], () =>
+    getTaskList(id)
   )
-  const tasks = res?.data?.filter(task => task.belong === pond.name_en)
+  return res?.data
+}
+
+export const Pond = React.forwardRef(({pond, user, toggleEditModal, ...props}, ref) => {
+  const res = useTasks(user.id)
+  const tasks = res?.filter(task => task.belong === pond.id)
 
   return (
-    <Container>
+    <Container {...props} ref={ref}>
       <h3>{pond.name_cn}</h3>
       <TasksContainer>
-        {tasks?.map(task => <TaskCard key={task.id}  task={task} toggleEditModal={toggleEditModal}/>)}
-        <CreateTask belong={pond.name_en} userId={user.id}/>
+        <Drop type='ROW' direction='vertical' droppableId={String(pond.id)}>
+          <DropChild style={{ minHeight: "1rem" }}>
+            {tasks?.map((task, taskIdx) =>
+              <Drag key={task.id} index={taskIdx} draggableId={'drag' + task.id}>
+                <div>
+                  <TaskCard task={task} toggleEditModal={toggleEditModal}/>
+                </div>
+              </Drag>
+            )}
+          </DropChild>
+        </Drop>
+        <CreateTask belong={pond.id} userId={user.id}/>
       </TasksContainer>
     </Container>
   )
-}
+})
 
 const Container = styled.div`
   min-width: 27rem;
