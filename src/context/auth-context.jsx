@@ -1,62 +1,61 @@
-import React, {Component} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import * as auth from '../network/user'
 import { isExist, setToken, removeToken } from "../utils/auth";
 
 export const AuthContext = React.createContext(undefined)
 AuthContext.displayName = "AuthContext"
 
-export class AuthProvider extends Component {
-  state = {
-    user: null,
-    isLoading: false
-  }
+export const AuthProvider = ({children}) => {
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  componentDidMount() {
-    if(isExist()) {
-      this.me()
-    }
-  }
-
-  me = () => auth.me().then(res => {
+  const me = () => auth.me().then(res => {
     const user = res?.data
-    this.setState({user})
+    setUser(user)
   }).catch(err => {
     console.log(err, 'me响应拦截器返回的Promise.reject()被我抓到啦~')
   })
 
-  login = (form) => {
-    this.setState({isLoading: true})
+  const login = (form) => {
+    setIsLoading(true)
     auth.login(form).then(res => {
       const user = res?.data
       setToken(user.token)
-      this.setState({user})
-      this.setState({isLoading: false})
+      setUser(user)
+      setIsLoading(false)
     }).catch(err => {
-      this.setState({isLoading: false})
+      setIsLoading(false)
       console.log(err, 'login响应拦截器返回的Promise.reject()被我抓到啦~')
     })
   }
 
   // 注册还没搞
-  register = (form) => auth.register(form).then(res => {
+  const register = (form) => auth.register(form).then(res => {
     const user = res?.data
     setToken(user.token)
-    this.setState({user})
+    setUser(user)
   }).catch(err => {
     console.log(err, 'register响应拦截器返回的Promise.reject()被我抓到啦~')
   })
 
-  logout = () => {
+  const logout = () => {
     removeToken()
-    this.setState({user: null})
+    setUser(null)
   }
 
-  render() {
-    const {user, isLoading} = this.state
-    const {children} = this.props
-    const {login, register, logout} = this
-    return (
-      <AuthContext.Provider value={{ user, isLoading, login, register, logout }} children={children}/>
-    )
-  }
+  useEffect(() => {
+    if(isExist()) {
+      me()
+    }
+  }, [])
+
+  return (
+    <AuthContext.Provider value={useMemo(() =>
+        ({ user, isLoading, login, register, logout }),
+      [user, isLoading, login, register, logout]
+      )}>
+      {children}
+    </AuthContext.Provider>
+  )
+
 }
