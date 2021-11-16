@@ -11,6 +11,7 @@ export default class Login extends Component {
   static contextType = AuthContext
 
   handleSubmit = (values) => {
+    console.log(this.context);
     const { login } = this.context
     login(values)
   }
