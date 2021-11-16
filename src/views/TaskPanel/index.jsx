@@ -88,8 +88,7 @@ export default class TaskPanel extends Component {
 
 const MyDropChild = styled(DropChild)`
   display: flex;
-  justify-content: space-evenly;
-  align-content: space-between;
+  gap: 1rem;
   flex-wrap: wrap;
   height: 100vh;
   overflow: hidden;

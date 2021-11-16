@@ -1,7 +1,7 @@
 #task-panel {
-  display: flex;
+  /* display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   height: 100%;
   overflow: hidden;
   padding: 0.5rem;
