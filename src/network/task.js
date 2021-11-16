@@ -7,3 +7,28 @@ export function getTaskList(userId) {
     params: { userId }
   });
 }
+
+export function addTask(data) {
+  return request({
+    url: '/task/add',
+    method: 'post',
+    data
+  });
+}
+
+export function editTask(data) {
+  return request({
+    url: '/task/edit',
+    method: 'post',
+    data
+  });
+}
+
+export function getTask(id) {
+  return request({
+    url: '/task/info',
+    method: 'get',
+    params: { id }
+  });
+}
+
