@@ -5,8 +5,8 @@ import {Pond} from "./components/Pond";
 // import {Drag, Drop, DropChild} from "../../components/DragAndDrop";
 import {getPondList} from "../../network/pond";
 import {useAuth} from "../../context/auth-context";
-import './idnex.css'
 import {EditTaskModal} from "./components/EditTask";
+import './idnex.css'
 
 export const TaskPanel = () => {
   const {user} = useAuth()

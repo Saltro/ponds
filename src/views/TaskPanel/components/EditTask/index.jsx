@@ -36,8 +36,10 @@ export const useTaskModal = () => {
   //   "startAt": "2021-11-15T23:55:31.000Z",
   //   "endAt": "2021-11-15T23:55:31.000Z"
   // }
+  console.log('startEdit之前',editingTaskId)
   const startEdit = useCallback((id) => {
     setEditingTaskId(id)
+    console.log('startEdit之后',editingTaskId)
   }, [setEditingTaskId])
   const close = useCallback(() => {
     setEditingTaskId(0)
@@ -56,6 +58,7 @@ export const EditTaskModal = () => {
   const { RangePicker } = DatePicker
   const [form] = useForm()
   const {editingTask, editingTaskId, close} = useTaskModal()
+  console.log('modal',editingTaskId)
   const {mutateAsync: editTask, isLoading: editLoading} = useEditTask('tasks')
 
   const onCancel = () => {
