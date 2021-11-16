@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from "@emotion/styled";
 import {Pond} from "./components/Pond";
-// import {DragDropContext} from "react-beautiful-dnd";
-// import {Drag, Drop, DropChild} from "../../components/DragAndDrop";
+import {DragDropContext} from "react-beautiful-dnd";
+import {Drag, Drop, DropChild} from "../../components/DragAndDrop";
 import {getPondList} from "../../network/pond";
 import {useAuth} from "../../context/auth-context";
 import {EditTaskModal} from "./components/EditTask";
@@ -10,6 +10,7 @@ import './idnex.css'
 
 export const TaskPanel = () => {
   const {user} = useAuth()
+  const [taskId, setTaskId] = useState(0)
   const [ponds, setPonds] = useState([])
 
   useEffect(() => {
@@ -19,15 +20,21 @@ export const TaskPanel = () => {
     })
   }, [])
 
+  const toggleEditModal = (newTaskId) => {
+    setTaskId(newTaskId)
+  }
+
   return (
-    <ScreenContainer>
-      <ColumnsContainer>
-        {
-          ponds?.map(pond => <Pond key={pond.id} pond={pond} user={user}/>)
-        }
-      </ColumnsContainer>
-     <EditTaskModal />
-    </ScreenContainer>
+    <DragDropContext onDragEnd={() => {}}>
+      <ScreenContainer>
+        <ColumnsContainer>
+          {
+            ponds?.map(pond => <Pond toggleEditModal={toggleEditModal} key={pond.id} pond={pond} user={user}/>)
+          }
+        </ColumnsContainer>
+        <EditTaskModal taskId={taskId} toggleEditModal={toggleEditModal}/>
+      </ScreenContainer>
+    </DragDropContext>
   )
 }
 

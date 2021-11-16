@@ -5,29 +5,33 @@ import styled from "@emotion/styled";
 import {Card} from "antd";
 import {getTaskList} from '../../../../network/task'
 import {CreateTask} from "../CreateTask";
-import {useTaskModal} from "../EditTask";
 import './index.css'
 
-export const Pond = ({pond, user}) => {
+const TaskCard = (props) => {
+  const {task, toggleEditModal} = props
+  return (
+    <Card onClick={() => toggleEditModal(task.id)} style={{marginBottom: '0.5rem'}}>
+      <div>
+        {task.describe}
+      </div>
+      <div>
+        {`重要程度:${task.importance},紧急程度:${task.urgency}`}
+      </div>
+    </Card>
+  )
+}
+
+export const Pond = ({pond, user, toggleEditModal}) => {
   const {data: res} = useQuery(['tasks', user], () =>
     getTaskList(user.id)
   )
   const tasks = res?.data?.filter(task => task.belong === pond.name_en)
-  const {startEdit} = useTaskModal()
 
   return (
     <Container>
       <h3>{pond.name_cn}</h3>
       <TasksContainer>
-        {tasks?.map(task =>
-          <Card onClick={() => startEdit(task.id)} style={{marginBottom:'0.5rem'}} key={task.id}>
-            <div>
-              {task.describe}
-            </div>
-            <div>
-              {`重要程度:${task.importance},紧急程度:${task.urgency}`}
-            </div>
-        </Card>)}
+        {tasks?.map(task => <TaskCard key={task.id}  task={task} toggleEditModal={toggleEditModal}/>)}
         <CreateTask belong={pond.name_en} userId={user.id}/>
       </TasksContainer>
     </Container>
