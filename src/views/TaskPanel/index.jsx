@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled from "@emotion/styled";
-import {Pond} from "./components/pond/index";
+import {Pond} from "./components/Pond";
 // import {DragDropContext} from "react-beautiful-dnd";
 // import {Drag, Drop, DropChild} from "../../components/DragAndDrop";
 import {getPondList} from "../../network/pond";
