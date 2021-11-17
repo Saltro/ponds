@@ -8,6 +8,7 @@ import {getPondList, reorderPonds} from "../../network/pond";
 import {useAuth} from "../../context/auth-context";
 import {EditTaskModal} from "./components/EditTask";
 import {reorderTasks} from "../../network/task";
+import {addHistory, getHistoryList} from "../../network/history";
 import './idnex.css'
 
 const usePonds = () => {
@@ -15,6 +16,23 @@ const usePonds = () => {
     getPondList()
   )
   return res?.data
+}
+
+// 获取拖拽历史表
+export const useDropList = () => {
+  const {data: res} = useQuery(['histories'], () =>
+    getHistoryList()
+  )
+  return res?.data
+}
+
+const useAddDropHistory = (queryKey) => {
+  const queryClient = useQueryClient()
+  return useMutation(
+    (param) => addHistory(param), {
+      onSuccess: () => queryClient.invalidateQueries(queryKey)
+    }
+  )
 }
 
 export const TaskPanel = () => {
@@ -71,12 +89,13 @@ export const useDragEnd = () => {
   const ponds = usePonds()
   const {mutate: reorderPonds} = useReorderPonds('ponds')
   const {mutate: reorderTasks} = useReorderTasks('tasks')
+  const {mutate: addHistory} = useAddDropHistory('histories')
 
   return useCallback(({source, destination, type}) => {
     if (!destination) {
       return
     }
-    console.log(source, destination, type)
+
     // 池子排序
     if (type === 'COLUMN') {
       const fromId = ponds?.[source.index].sort
@@ -94,8 +113,15 @@ export const useDragEnd = () => {
       const fromPondId = Number(source.droppableId)
       const toPondId = Number(destination.droppableId)
       const fromTask = tasks.filter(task => task.belong === fromPondId)[source.index]
-      console.log(fromTask);
       const toTask = tasks.filter(task => task.belong === toPondId)[destination.index]
+      if (fromPondId !== toPondId) {
+        addHistory({
+          userId: user.id,
+          taskId: fromTask?.id,
+          fromId: fromPondId,
+          toId: toPondId
+        })
+      }
       if (fromTask?.sort === toTask?.sort) {
         return
       }
@@ -108,8 +134,7 @@ export const useDragEnd = () => {
         tag: fromTask?.id
       })
     }
-
-  }, [ponds, reorderPonds, tasks, reorderTasks])
+  }, [ponds, reorderPonds, tasks, reorderTasks, addHistory])
 }
 
 const ScreenContainer = styled.div`
