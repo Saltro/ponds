@@ -5,6 +5,7 @@ import './calendar-heatmap.css'
 import AnalysisUtil from '../../utils/AnalysisUtil'
 import history from '../../mock/history'
 
+
 export default class AnalysisPanel extends Component {
   state = {
     analysis: new AnalysisUtil({

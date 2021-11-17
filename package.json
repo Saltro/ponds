@@ -11,6 +11,8 @@
     "antd": "^4.16.13",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
+    "echarts": "^5.2.2",
+    "echarts-stat": "^1.2.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
