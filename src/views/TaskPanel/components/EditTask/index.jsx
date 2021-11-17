@@ -1,13 +1,10 @@
 import {useForm} from "antd/es/form/Form";
-import {useCallback, useEffect, useState} from "react";
+import moment from "moment";
 import {Form, Input, Modal, DatePicker, Slider} from "antd";
 import {editTask, getTask} from "../../../../network/task";
 import {useMutation, useQuery, useQueryClient} from "react-query";
+import {useEffect} from "react";
 
-const layout = {
-  labelCol: {span: 8},
-  wrapperCol: {span: 16}
-}
 
 const useTask = (id) => {
   return useQuery(['task', id],
@@ -24,53 +21,36 @@ const useEditTask = (queryKey) => {
   )
 }
 
-export const useTaskModal = () => {
-  const [editingTaskId, setEditingTaskId] = useState(null)
-  const {data: editingTask, isLoading} = useTask(editingTaskId)
-  // const editingTask = {
-  //   "id": 8,
-  //   "describe": "做个锤子的作业",
-  //   "belong": "finish-pond",
-  //   "importance": 5,
-  //   "urgency": 5,
-  //   "startAt": "2021-11-15T23:55:31.000Z",
-  //   "endAt": "2021-11-15T23:55:31.000Z"
-  // }
-  const startEdit = useCallback((id) => {
-    setEditingTaskId(id)
-  }, [setEditingTaskId])
-  const close = useCallback(() => {
-    setEditingTaskId(0)
-  }, [setEditingTaskId])
-
-  return {
-    editingTask,
-    editingTaskId,
-    startEdit,
-    close,
-    isLoading
-  }
+export const useTaskModal = (taskId) => {
+  const {data: res} = useTask(taskId)
+  const editingTask = {...res?.data, startAt: moment(res?.data?.startAt), endAt: moment(res?.data?.endAt)}
+  return {editingTask}
 }
 
-export const EditTaskModal = () => {
-  const { RangePicker } = DatePicker
+export const EditTaskModal = ({taskId, toggleEditModal}) => {
   const [form] = useForm()
-  const {editingTask, editingTaskId, close} = useTaskModal()
-  const {mutateAsync: editTask, isLoading: editLoading} = useEditTask('tasks')
+  const {editingTask} = useTaskModal(taskId);
+  const { mutateAsync: editTask} = useEditTask('tasks')
+  const layout = {
+    labelCol: {span: 5},
+    wrapperCol: {span: 16}
+  }
 
   const onCancel = () => {
-    close()
-    form.resetFields()
+    toggleEditModal(0)
+    form.resetFields();
+    // console.log('Cancel')
   }
 
   const onOk = async () => {
     await editTask({...editingTask, ...form.getFieldsValue()})
-    close()
+    toggleEditModal(0)
+    // console.log('Ok');
   }
 
   useEffect(() => {
-    form.setFieldsValue(editingTask)
-  }, [form, editingTask])
+    form.setFieldsValue(editingTask);
+  }, [form, editingTask]);
 
   return (
     <Modal
@@ -79,9 +59,8 @@ export const EditTaskModal = () => {
       onOk={onOk}
       okText="确认"
       cancelText="取消"
-      confirmLoading={editLoading}
       title="编辑任务"
-      visible={!!editingTaskId}
+      visible={!!taskId}
     >
       <Form {...layout} initialValues={editingTask} form={form}>
         <Form.Item
@@ -91,8 +70,17 @@ export const EditTaskModal = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item label="期限" name="processorId">
-          <RangePicker />
+        <Form.Item label="开始时间" name="startAt">
+          <DatePicker
+            format="YYYY-MM-DD HH:mm:ss"
+            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
+          />
+        </Form.Item>
+        <Form.Item label="结束时间" name="endAt">
+          <DatePicker
+            format="YYYY-MM-DD HH:mm:ss"
+            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
+          />
         </Form.Item>
         <Form.Item label="重要程度" name="importance">
           <Slider min={-5} max={5}/>

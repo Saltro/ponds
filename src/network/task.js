@@ -32,3 +32,18 @@ export function getTask(id) {
   });
 }
 
+// interface SortProps {
+//   fromId: number;
+//   referenceId: number;
+//   type: 'before' | 'after';
+//   fromPondId?: number;
+//   toPondId?: number
+// }
+
+export function reorderTasks(data) {
+  return request({
+    url: '/task/reorder',
+    method: 'post',
+    data
+  });
+}
