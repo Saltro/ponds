@@ -1,0 +1,86 @@
+Math.seed = (new Date()).getTime();
+
+const history = [
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-01-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-01-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-01-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-01-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-06-04T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-05-04T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-05-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-04-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-03-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+  {
+    id: Math.ceil(Math.random() * 100000),
+    userId: Math.ceil(Math.random() * 1000),
+    taskId: Math.ceil(Math.random() * 10000),
+    dropTime: '2021-02-03T21:01:49Z',
+    fromId: Math.ceil(Math.random() * 7),
+    toId: Math.ceil(Math.random() * 7),
+  },
+];
+
+export default history;
