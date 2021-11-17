@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react'
 import CalendarHeatmap from 'react-calendar-heatmap'
 import AnalysisUtil from '../../utils/AnalysisUtil'
+import Popover from './components/Popover/index'
 import { useDropHistory } from '../TaskPanel'
 import { useAuth } from '../../context/auth-context'
-// import history from '../../mock/history'
 import './index.css'
 import './calendar-heatmap.css'
 
 export default function () {
-  // const [analysis] = useState(new AnalysisUtil({
-  //     history: useDropHistory(),
-  //     registeDate: new Date('2020-01-14'),
-  //   }))
   const history = useDropHistory() || []
   const [executePerDayAvg, setExecutePerDayAvg] = useState(0)
   const [finishPerWeekAvg, setFinishPerWeekAvg] = useState(0)
   const [numberOfExecutingDays, setNumberOfExecutingDays] = useState(0)
   const [accumulatedFinished, setAccumulatedFinished] = useState(0)
   const [heatmapValues, setHeatmapValues] = useState([])
+  const [popoverTop, setPopoverTop] = useState(0)
+  const [popoverLeft, setPopoverLeft] = useState(0)
+  const [popoverContent, setPopoverContent] = useState('')
+  const [popoverVisibility, setPopoverVisibility] = useState(false)
   const { user } = useAuth()
-  console.log('user', user)
   const curDate = new Date()
   const lastYearDate = new Date(curDate - (365 * 24 * 60 * 60 * 1000))
   const valueLastYearDate = new Date(lastYearDate - (7 * 24 * 60 * 60 * 1000))
@@ -29,7 +28,6 @@ export default function () {
   })
 
   useEffect(() => {
-    console.log(history)
     analysis.history = history
     setExecutePerDayAvg(analysis.executePerDayAvg())
     setFinishPerWeekAvg(analysis.finishPerWeekAvg())
@@ -42,6 +40,7 @@ export default function () {
     <div id="analysis-panel">
       <div className="calendar-container">
         <div id="calendar-heatmap">
+          <Popover content={popoverContent} top={popoverTop} left={popoverLeft} visibility={popoverVisibility} />
           <CalendarHeatmap
             values={heatmapValues}
             startDate={lastYearDate}
@@ -60,9 +59,19 @@ export default function () {
             }}
             tooltipDataAttrs={({date, count}) => {
               if (count === null) {
-                return { 'data-tooltip': 'No data' };
+                return { 'data-tooltip': '没有记录' };
               }
-              return { 'data-tooltip': `${date}<br>${count}` };
+              const d = new Date(date);
+              return { 'data-tooltip': `${d.getMonth()}月${d.getDate()}日 ${count}次记录` };
+            }}
+            onMouseOver={(event, value) => {
+              setPopoverVisibility(true);
+              setPopoverTop(event.clientY);
+              setPopoverLeft(event.clientX);
+              setPopoverContent(event.target.getAttribute('data-tooltip'));
+            }}
+            onMouseLeave={(event, value) => {
+              setPopoverVisibility(false);
             }}
           />
         </div>
