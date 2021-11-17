@@ -1,15 +1,15 @@
 import { pondId } from './common';
 
 class AnalysisUtil {
-  constructor({ history, registeDate }) {
+  constructor({ history, registerAt }) {
     this.history = history;
-    this.registeDate = registeDate;
+    this.registerAt = registerAt;
     this.date = new Date();
   }
 
   executePerDayAvg() {
-    const { history, registeDate, date } = this;
-    const totalDay = (date - registeDate) / (1000 * 60 * 60 * 24);
+    const { history, registerAt, date } = this;
+    const totalDay = (date - registerAt) / (1000 * 60 * 60 * 24);
     let total = 0;
 
     history.forEach(({ fromId, toId }) => {
@@ -22,8 +22,8 @@ class AnalysisUtil {
   }
 
   finishPerWeekAvg() {
-    const { history, registeDate, date } = this;
-    const totalWeek = (date - registeDate) / (1000 * 60 * 60 * 24 * 7);
+    const { history, registerAt, date } = this;
+    const totalWeek = (date - registerAt) / (1000 * 60 * 60 * 24 * 7);
     let total = 0;
 
     history.forEach(({ fromId, toId }) => {
@@ -40,7 +40,7 @@ class AnalysisUtil {
     const dateSet = new Set();
 
     history.forEach(({ dropTime, fromId, toId }) => {
-      if (fromId === 'execute-pond' && (toId === 'accept-pond' || toId === 'finish-pond')) {
+      if (fromId === pondId['execute-pond'] && (toId === pondId['accept-pond'] || toId === pondId['finish-pond'])) {
         // 只加入日期
         dateSet.add(dropTime.slice(0, 10));
       }

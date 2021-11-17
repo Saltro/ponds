@@ -19,7 +19,7 @@ const usePonds = () => {
 }
 
 // 获取拖拽历史表
-export const useDropList = () => {
+export const useDropHistory = () => {
   const {data: res} = useQuery(['histories'], () =>
     getHistoryList()
   )
