@@ -10,7 +10,7 @@ import './index.css'
 const TaskCard = (props) => {
   const {task, toggleEditModal} = props
   return (
-    <Card onClick={() => toggleEditModal(task.id)} style={{marginBottom: '0.5rem'}}>
+    <Card onClick={() => toggleEditModal(task.id)} style={{marginBottom: '0.5rem', backgroundColor: '#F0F5FF'}}>
       <div>
         {task.describe}
       </div>
@@ -54,13 +54,17 @@ export const Pond = React.forwardRef(({pond, user, toggleEditModal, ...props}, r
 })
 
 const Container = styled.div`
-  min-width: 27rem;
+  width: calc((100vw - 9.2rem) / 4);
+  height: calc((100vh - 4rem) * 10 / 17);
   border-radius: 6px;
-  background-color: rgb(244, 245, 247);
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   padding: 0.7rem 0.7rem 1rem;
-  margin-right: 1.5rem;
+  :nth-last-of-type(-n+3){
+    width: calc((100vw - 9.2rem) / 3);
+    height: calc((100vh - 4rem) * 7 / 17);
+  }
 `
 
 const TasksContainer = styled.div`

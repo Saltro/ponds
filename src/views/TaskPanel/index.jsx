@@ -9,6 +9,7 @@ import {useAuth} from "../../context/auth-context";
 import {EditTaskModal} from "./components/EditTask";
 import {reorderTasks} from "../../network/task";
 import {addHistory, getHistoryList} from "../../network/history";
+import {reorder} from "../../utils/reorder";
 import './idnex.css'
 
 const usePonds = () => {
@@ -69,7 +70,19 @@ const useReorderPonds = (queryKey) => {
   const queryClient = useQueryClient()
   return useMutation(
     (data) => reorderPonds(data), {
-      onSuccess: () => queryClient.invalidateQueries(queryKey)
+      onSuccess: () => queryClient.invalidateQueries(queryKey),
+      async onMutate(target) {
+        const previousItems = queryClient.getQueryData(queryKey)
+        queryClient.setQueryData(queryKey, old => {
+          // console.log('old', old)
+          // console.log('res', {...old, data: reorder({list: old?.data, ...target})})
+          return {...old, data: reorder({list: old?.data, ...target})}
+        })
+        return {previousItems}
+      },
+      onError(error, newItem, context) {
+        queryClient.setQueryData(queryKey, context.previousItems)
+      }
     }
   )
 }
@@ -78,7 +91,23 @@ const useReorderTasks = (queryKey) => {
   const queryClient = useQueryClient()
   return useMutation(
     (data) => reorderTasks(data), {
-      onSuccess: () => queryClient.invalidateQueries(queryKey)
+      onSuccess: () => queryClient.invalidateQueries(queryKey),
+      async onMutate(target) {
+        const previousItems = queryClient.getQueryData(queryKey)
+        queryClient.setQueryData(queryKey, old => {
+          const orderedList = reorder({ list: old?.data, ...target });
+          const test = orderedList.map((item) =>
+            item.id === target.fromId
+              ? { ...item, belong: target.toPondId }
+              : item
+          );
+          return {...old, data: test}
+        })
+        return {previousItems}
+      },
+      onError(error, newItem, context) {
+        queryClient.setQueryData(queryKey, context.previousItems)
+      }
     }
   )
 }
@@ -139,12 +168,16 @@ export const useDragEnd = () => {
 
 const ScreenContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
 `
 
 const ColumnsContainer = styled(DropChild)`
   width: 100%;
-  flex: 1;
+  height: 100%;
+  overflow: hidden;
   display: flex;
-  overflow-x: scroll;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
 `
