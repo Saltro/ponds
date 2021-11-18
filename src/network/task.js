@@ -4,7 +4,7 @@ export function getTaskList(userId) {
   return request({
     url: '/task/list',
     method: 'get',
-    params: { userId }
+    params: { userId },
   });
 }
 
@@ -12,7 +12,7 @@ export function addTask(data) {
   return request({
     url: '/task/add',
     method: 'post',
-    data
+    data,
   });
 }
 
@@ -20,7 +20,7 @@ export function editTask(data) {
   return request({
     url: '/task/edit',
     method: 'post',
-    data
+    data,
   });
 }
 
@@ -28,7 +28,7 @@ export function getTask(id) {
   return request({
     url: '/task/info',
     method: 'get',
-    params: { id }
+    params: { id },
   });
 }
 
@@ -44,6 +44,6 @@ export function reorderTasks(data) {
   return request({
     url: '/task/reorder',
     method: 'post',
-    data
+    data,
   });
 }

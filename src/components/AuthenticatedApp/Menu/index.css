@@ -31,7 +31,7 @@
 }
 
 #menu-avatar img {
-  width: 100%
+  width: 100%;
 }
 
 #menu-logout {
@@ -42,7 +42,7 @@
   bottom: 4rem;
   z-index: 10;
   text-align: center;
-  color: #78BBFF;
+  color: #78bbff;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;

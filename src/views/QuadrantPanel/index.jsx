@@ -1,11 +1,11 @@
-import React,{Component} from 'react'
-import Quadrant from './component/quadrant'
+import React, { Component } from 'react';
+import Quadrant from './component/quadrant';
 export default class QuadrantPanel extends Component {
-  render () {
+  render() {
     return (
       <div>
-        <Quadrant/>
+        <Quadrant />
       </div>
-    )
+    );
   }
 }

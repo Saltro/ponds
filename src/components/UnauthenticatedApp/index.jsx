@@ -1,34 +1,34 @@
-import React, {Component} from 'react';
-import Login from './Login'
-import Register from './Register'
-import {Card, Divider, Button} from "antd";
-import styled from "@emotion/styled";
-import left from '../../assets/left.svg'
-import right from '../../assets/right.svg'
+import React, { Component } from 'react';
+import Login from './Login';
+import Register from './Register';
+import { Card, Divider, Button } from 'antd';
+import styled from '@emotion/styled';
+import left from '../../assets/left.svg';
+import right from '../../assets/right.svg';
 
 export default class UnauthenticatedApp extends Component {
   state = {
-    isRegister: false
-  }
+    isRegister: false,
+  };
 
   setIsRegister = (isRegister) => {
     this.setState({
-      isRegister: !isRegister
-    })
-  }
+      isRegister: !isRegister,
+    });
+  };
 
   render() {
-    const {isRegister} = this.state
+    const { isRegister } = this.state;
     return (
       <Container>
         <Header />
         <Background />
         <ShadowCard>
-          <Title>{isRegister ? "请注册" : "请登录"}</Title>
+          <Title>{isRegister ? '请注册' : '请登录'}</Title>
           {isRegister ? <Register /> : <Login />}
-          <Divider/>
+          <Divider />
           <LongButton type="link" onClick={() => this.setIsRegister(isRegister)}>
-            {isRegister ? "已经有账号了？直接登录" : "没有账号？注册新账号"}
+            {isRegister ? '已经有账号了？直接登录' : '没有账号？注册新账号'}
           </LongButton>
         </ShadowCard>
       </Container>
@@ -41,14 +41,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-`
+`;
 
 const Header = styled.header`
   //background: url() no-repeat center;
   padding: 5rem 0;
   background-size: 8rem;
   width: 100%;
-`
+`;
 
 const Background = styled.div`
   position: absolute;
@@ -57,15 +57,14 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: left bottom, right bottom;
-  background-size: calc(((100vw - 40rem) / 2) - 3.2rem),
-  calc(((100vw - 40rem) / 2) - 3.2rem), cover;
+  background-size: calc(((100vw - 40rem) / 2) - 3.2rem), calc(((100vw - 40rem) / 2) - 3.2rem), cover;
   background-image: url(${left}), url(${right});
 `;
 
 const Title = styled.h2`
   margin-bottom: 2.4rem;
   color: rgb(94, 108, 132);
-`
+`;
 
 const ShadowCard = styled(Card)`
   width: 40rem;
@@ -73,9 +72,9 @@ const ShadowCard = styled(Card)`
   padding: 3.2rem 4rem;
   border-radius: 0.3rem;
   box-sizing: border-box;
-  box-shadow: rgba(0,0,0,0.1) 0 0 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   text-align: center;
-`
+`;
 
 export const LongButton = styled(Button)`
   width: 100%;

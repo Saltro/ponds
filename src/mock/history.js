@@ -1,4 +1,4 @@
-Math.seed = (new Date()).getTime();
+Math.seed = new Date().getTime();
 
 const history = [
   {
