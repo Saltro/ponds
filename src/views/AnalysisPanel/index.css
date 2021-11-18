@@ -11,12 +11,6 @@
   padding: 0 1rem 0 0;
 }
 
-#calendar-heatmap {
-  padding: 2.5rem 2rem 0 1rem;
-  border-radius: 1rem;
-  border: 1px solid #e0e0e0;
-}
-
 .statistics-container {
   padding: 1rem 3rem;
   max-width: 20vw;

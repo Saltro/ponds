@@ -40,3 +40,10 @@
 .react-calendar-heatmap .color-scale-6 {
   fill: #7cb305;
 }
+
+#calendar-heatmap {
+  max-width: 100rem;
+  padding: 2.5rem 2rem 0 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e0e0e0;
+}
