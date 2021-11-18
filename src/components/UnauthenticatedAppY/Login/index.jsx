@@ -12,7 +12,7 @@ export default class Login extends Component {
 
   handleSubmit = (values) => {
     console.log(this.context);
-    const { login } = this.context;
+    const { login } = this.conytext;
     login(values);
   };
 

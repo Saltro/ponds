@@ -4,8 +4,9 @@ import UnauthenticatedApp from './components/UnauthenticatedApp';
 import AuthenticatedApp from './components/AuthenticatedApp';
 import './App.css';
 
+
 export default class App extends Component {
-  static contextType = AuthContext;
+  static contextType = AuthContext
 
   render() {
     const { user } = this.context;

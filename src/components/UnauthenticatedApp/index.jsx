@@ -1,81 +1,73 @@
-import React, { Component } from 'react';
-import Login from './Login';
-import Register from './Register';
-import { Card, Divider, Button } from 'antd';
-import styled from '@emotion/styled';
-import left from '../../assets/left.svg';
-import right from '../../assets/right.svg';
+import { Component } from 'react';
+import { Row, Col, Image, Tabs, Space } from 'antd';
+import styled from "@emotion/styled";
+import './index.css'
+import Logo from '../../assets/LOGO.png'
+import Task from '../../assets/Task Pools.png'
+import Login from './component/Login'
+import Register from './component/Register';
 
-export default class UnauthenticatedApp extends Component {
-  state = {
-    isRegister: false,
-  };
 
-  setIsRegister = (isRegister) => {
-    this.setState({
-      isRegister: !isRegister,
-    });
-  };
+const { TabPane } = Tabs;
 
+
+function callback(key) {
+  console.log(key);
+}
+
+class UnauthenticatedApp extends Component {
   render() {
-    const { isRegister } = this.state;
     return (
       <Container>
-        <Header />
-        <Background />
-        <ShadowCard>
-          <Title>{isRegister ? '请注册' : '请登录'}</Title>
-          {isRegister ? <Register /> : <Login />}
-          <Divider />
-          <LongButton type="link" onClick={() => this.setIsRegister(isRegister)}>
-            {isRegister ? '已经有账号了？直接登录' : '没有账号？注册新账号'}
-          </LongButton>
-        </ShadowCard>
+        <div className="container">
+          <div style={{ width: '100%' }}>
+            <Row align="middle" justify="center">
+              <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+
+                <div className="img-left" />
+                <div style={{ position: 'relative', width: '360px' }}>
+                  <div style={{ marginTop: '-80px' }}>
+                    <Space size="middle">
+                      <Image
+                        width={120}
+                        src={Logo}
+                        preview={false}
+                      />
+                      <Image
+                        width={222}
+                        src={Task}
+                        preview={false}
+                      />
+                    </Space>
+                  </div>
+                  <div style={{ width: '360px', height: '284px', position: 'absolute', top: 'calc(50% - 142px)' }}>
+                    <Tabs defaultActiveKey="1" onChange={callback} animated >
+                      <TabPane tab="Login" key="1">
+                        <Login />
+                      </TabPane>
+                      <TabPane tab="Sign Up" key="2">
+                        <Register />
+                      </TabPane>
+                    </Tabs>
+                  </div>
+                </div>
+
+              </Col>
+            </Row>
+          </div>
+        </div>
       </Container>
     );
   }
 }
 
+
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display:flex;
   align-items: center;
-  min-height: 100vh;
-`;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f2f5;
+`
 
-const Header = styled.header`
-  //background: url() no-repeat center;
-  padding: 5rem 0;
-  background-size: 8rem;
-  width: 100%;
-`;
-
-const Background = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: left bottom, right bottom;
-  background-size: calc(((100vw - 40rem) / 2) - 3.2rem), calc(((100vw - 40rem) / 2) - 3.2rem), cover;
-  background-image: url(${left}), url(${right});
-`;
-
-const Title = styled.h2`
-  margin-bottom: 2.4rem;
-  color: rgb(94, 108, 132);
-`;
-
-const ShadowCard = styled(Card)`
-  width: 40rem;
-  min-height: 50rem;
-  padding: 3.2rem 4rem;
-  border-radius: 0.3rem;
-  box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
-  text-align: center;
-`;
-
-export const LongButton = styled(Button)`
-  width: 100%;
-`;
+export default UnauthenticatedApp;
