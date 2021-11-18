@@ -1,7 +1,7 @@
 import { useForm } from 'antd/es/form/Form';
 import moment from 'moment';
 import { Form, Input, Modal, DatePicker, Slider } from 'antd';
-import { editTask, getTask } from '../../../../network/task';
+import { editTask, getTask } from '@/network/task';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useEffect } from 'react';
 

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { AuthContext } from '../../../context/auth-context';
+import { AuthContext } from '@/context/auth-context';
 import '../index.css'
 
 

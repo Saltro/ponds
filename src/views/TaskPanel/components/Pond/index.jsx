@@ -3,8 +3,8 @@ import { useQuery } from 'react-query';
 import styled from '@emotion/styled';
 import { Card, Tooltip, Rate } from 'antd';
 import { QuestionCircleOutlined, FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
-import { Drag, Drop, DropChild } from '../../../../components/DragAndDrop';
-import { getTaskList } from '../../../../network/task';
+import { Drag, Drop, DropChild } from '@/components/DragAndDrop';
+import { getTaskList } from '@/network/task';
 import { CreateTask } from '../CreateTask';
 import './index.css';
 
