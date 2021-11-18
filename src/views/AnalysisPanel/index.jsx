@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import AnalysisUtil from '@/utils/AnalysisUtil';
 import Heatmap from './components/Heatmap';
+import Quadrant from './components/Quadrant'
 import { useDropHistory } from '../TaskPanel';
 import { useAuth } from '@/context/auth-context';
 import { Helmet } from 'react-helmet';
@@ -40,6 +41,7 @@ export default function () {
       <div id="analysis-panel">
         <div className="calendar-container">
           <Heatmap heatmapValues={heatmapValues} lastYearDate={lastYearDate} curDate={curDate} />
+          <Quadrant width={800} height={600} />
         </div>
         <div className="statistics-container">
           <div className="statistics-card">

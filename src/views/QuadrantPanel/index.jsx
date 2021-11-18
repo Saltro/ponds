@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Quadrant from './component/Quadrant/index';
 import { Helmet } from 'react-helmet';
 
 export default class QuadrantPanel extends Component {
@@ -9,7 +8,6 @@ export default class QuadrantPanel extends Component {
         <Helmet>
           <title>TP-象限面板</title>
         </Helmet>
-        <Quadrant />
       </div>
     );
   }

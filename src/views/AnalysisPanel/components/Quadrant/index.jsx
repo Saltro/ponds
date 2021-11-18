@@ -4,11 +4,15 @@ import { useTasks } from '@/views/TaskPanel/components/Pond';
 import { useAuth } from '@/context/auth-context';
 import QuadrantUtil from '@/utils/QuadrantUtil';
 
-export default function index() {
+export default function index(props) {
   const { user } = useAuth();
   const tasks = useTasks(user.id);
   const [data, setData] = useState(tasks);
   const quarantUtil = new QuadrantUtil(tasks);
+  const {
+    width,
+    height
+  } = props;
 
   useEffect(() => {
     quarantUtil.tasks = tasks;
@@ -16,8 +20,8 @@ export default function index() {
   }, [tasks]);
 
   const config = {
-    width: 800,
-    height: 500,
+    width,
+    height,
     data,
     xField: 'x',
     yField: 'y',

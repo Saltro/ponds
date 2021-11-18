@@ -35,9 +35,6 @@ export default class Menu extends Component {
           <NavLink className="menu-fun-item" to="/task">
             <i className="iconfont icon-renwujincheng" />
           </NavLink>
-          <NavLink className="menu-fun-item" to="/quadrant">
-            <i className="iconfont icon-zuobiaozhou" />
-          </NavLink>
           <NavLink className="menu-fun-item" to="/analysis">
             <i className="iconfont icon-weibiaoti1" />
           </NavLink>
