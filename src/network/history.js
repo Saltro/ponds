@@ -4,7 +4,7 @@ export function getHistoryList(userId) {
   return request({
     url: '/history/list',
     method: 'get',
-    params: { userId }
+    params: { userId },
   });
 }
 
@@ -12,6 +12,6 @@ export function addHistory(data) {
   return request({
     url: '/history/add',
     method: 'post',
-    data
+    data,
   });
 }

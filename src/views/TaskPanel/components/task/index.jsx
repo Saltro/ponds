@@ -1,16 +1,14 @@
-import React, {Component, Fragment} from 'react';
-import styled from "@emotion/styled";
+import React, { Component, Fragment } from 'react';
+import styled from '@emotion/styled';
 
 export default class Task extends Component {
   render() {
-    const { taskInfo } = this.props
+    const { taskInfo } = this.props;
     return (
       <>
-        {
-          taskInfo.map(item => <PondTaskItem key={item.id}>
-            {item.finish ? <s>{item.describe}</s> : item.describe}
-          </PondTaskItem>)
-        }
+        {taskInfo.map((item) => (
+          <PondTaskItem key={item.id}>{item.finish ? <s>{item.describe}</s> : item.describe}</PondTaskItem>
+        ))}
       </>
     );
   }
@@ -25,6 +23,4 @@ const PondTaskItem = styled.div`
   :last-child {
     margin-bottom: 0;
   }
-`
-
-
+`;

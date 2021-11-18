@@ -14,7 +14,7 @@
 #calendar-heatmap {
   padding: 2.5rem 2rem 0 1rem;
   border-radius: 1rem;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
 }
 
 .statistics-container {
@@ -24,22 +24,22 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border-left: solid 1px #E0E0E0;
+  border-left: solid 1px #e0e0e0;
 }
 
 .statistics-container .statistics-card {
   font-size: 1.5rem;
   color: #505050;
   padding: 0.5rem 1.5rem;
-  border: solid 1px #E0E0E0;
+  border: solid 1px #e0e0e0;
   border-radius: 0.5rem;
-  background-color: #EFF3FC;
-  box-shadow: 3px 3px 10px rgb(0 0 0 / 15%)
+  background-color: #eff3fc;
+  box-shadow: 3px 3px 10px rgb(0 0 0 / 15%);
 }
 
 .statistics-card .number {
   display: inline-block;
   font-size: 2rem;
   margin: 0 0.5rem;
-  color: #eb6464
+  color: #eb6464;
 }

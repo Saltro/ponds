@@ -1,40 +1,40 @@
-import { useEffect, useState } from 'react'
-import CalendarHeatmap from 'react-calendar-heatmap'
-import AnalysisUtil from '../../utils/AnalysisUtil'
-import Popover from './components/Popover/index'
-import { useDropHistory } from '../TaskPanel'
-import { useAuth } from '../../context/auth-context'
-import './index.css'
-import './calendar-heatmap.css'
+import { useEffect, useState } from 'react';
+import CalendarHeatmap from 'react-calendar-heatmap';
+import AnalysisUtil from '../../utils/AnalysisUtil';
+import Popover from './components/Popover/index';
+import { useDropHistory } from '../TaskPanel';
+import { useAuth } from '../../context/auth-context';
+import './index.css';
+import './calendar-heatmap.css';
 
 export default function () {
-  const history = useDropHistory() || []
-  const [executePerDayAvg, setExecutePerDayAvg] = useState(0)
-  const [finishPerWeekAvg, setFinishPerWeekAvg] = useState(0)
-  const [numberOfExecutingDays, setNumberOfExecutingDays] = useState(0)
-  const [accumulatedFinished, setAccumulatedFinished] = useState(0)
-  const [heatmapValues, setHeatmapValues] = useState([])
-  const [popoverTop, setPopoverTop] = useState(0)
-  const [popoverLeft, setPopoverLeft] = useState(0)
-  const [popoverContent, setPopoverContent] = useState('')
-  const [popoverVisibility, setPopoverVisibility] = useState(false)
-  const { user } = useAuth()
-  const curDate = new Date()
-  const lastYearDate = new Date(curDate - (365 * 24 * 60 * 60 * 1000))
-  const valueLastYearDate = new Date(lastYearDate - (7 * 24 * 60 * 60 * 1000))
+  const history = useDropHistory() || [];
+  const [executePerDayAvg, setExecutePerDayAvg] = useState(0);
+  const [finishPerWeekAvg, setFinishPerWeekAvg] = useState(0);
+  const [numberOfExecutingDays, setNumberOfExecutingDays] = useState(0);
+  const [accumulatedFinished, setAccumulatedFinished] = useState(0);
+  const [heatmapValues, setHeatmapValues] = useState([]);
+  const [popoverTop, setPopoverTop] = useState(0);
+  const [popoverLeft, setPopoverLeft] = useState(0);
+  const [popoverContent, setPopoverContent] = useState('');
+  const [popoverVisibility, setPopoverVisibility] = useState(false);
+  const { user } = useAuth();
+  const curDate = new Date();
+  const lastYearDate = new Date(curDate - 365 * 24 * 60 * 60 * 1000);
+  const valueLastYearDate = new Date(lastYearDate - 7 * 24 * 60 * 60 * 1000);
   const analysis = new AnalysisUtil({
     history,
-    registerAt: user.registerAt || new Date(new Date() - (7 * 24 * 60 * 60 * 1000)),
-  })
+    registerAt: user.registerAt || new Date(new Date() - 7 * 24 * 60 * 60 * 1000),
+  });
 
   useEffect(() => {
-    analysis.history = history
-    setExecutePerDayAvg(analysis.executePerDayAvg())
-    setFinishPerWeekAvg(analysis.finishPerWeekAvg())
-    setNumberOfExecutingDays(analysis.numberOfExecutingDays())
-    setAccumulatedFinished(analysis.accumulatedFinished())
-    setHeatmapValues(analysis.getValuesFrom(Math.max(valueLastYearDate, analysis.registerAt)))
-  }, [history])
+    analysis.history = history;
+    setExecutePerDayAvg(analysis.executePerDayAvg());
+    setFinishPerWeekAvg(analysis.finishPerWeekAvg());
+    setNumberOfExecutingDays(analysis.numberOfExecutingDays());
+    setAccumulatedFinished(analysis.accumulatedFinished());
+    setHeatmapValues(analysis.getValuesFrom(valueLastYearDate));
+  }, [history]);
 
   return (
     <div id="analysis-panel">
@@ -46,7 +46,7 @@ export default function () {
             startDate={lastYearDate}
             endDate={curDate}
             monthLabels={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-            weekdayLabels={["日", "一", "二", "三", "四", "五", "六"]}
+            weekdayLabels={['日', '一', '二', '三', '四', '五', '六']}
             showWeekdayLabels
             gutterSize={2}
             showOutOfRangeDays
@@ -57,7 +57,7 @@ export default function () {
               const colorMapIdx = [0, 5, 10, 15, 20, 25, 30].filter((item) => item <= value.count).length;
               return 'color-rect ' + (colorMapIdx <= 0 ? 'color-empty' : `color-scale-${colorMapIdx}`);
             }}
-            tooltipDataAttrs={({date, count}) => {
+            tooltipDataAttrs={({ date, count }) => {
               if (count === null) {
                 return { 'data-tooltip': '没有记录' };
               }
@@ -91,5 +91,5 @@ export default function () {
         </div>
       </div>
     </div>
-  )
+  );
 }

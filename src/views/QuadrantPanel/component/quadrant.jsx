@@ -1,11 +1,11 @@
-import {Component} from 'react'
+import { Component } from 'react';
 import * as echarts from 'echarts/core';
 import {
   DatasetComponent,
   TooltipComponent,
   GridComponent,
   VisualMapComponent,
-  TransformComponent
+  TransformComponent,
 } from 'echarts/components';
 import { ScatterChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
@@ -19,23 +19,19 @@ echarts.use([
   TransformComponent,
   ScatterChart,
   CanvasRenderer,
-  UniversalTransition
+  UniversalTransition,
 ]);
 
 import ecStat from 'echarts-stat';
 
-
-
-
-
 echarts.registerTransform(ecStat.transform.clustering);
 const data = [
   {
-    name:'单独的',
+    name: '单独的',
     value: [3.275154, 2.957587],
     label: {
-      show: true
-    }
+      show: true,
+    },
   },
   [-3.344465, 2.603513],
   [0.355083, -3.376585],
@@ -95,25 +91,17 @@ const data = [
   [-0.966018, -2.839827],
   [2.960769, 3.079555],
   [-3.275518, 1.577068],
-  [0.639276, -3.41284]
+  [0.639276, -3.41284],
 ];
 let CLUSTER_COUNT = 6;
 let DIENSIION_CLUSTER_INDEX = 2;
-let COLOR_ALL = [
-  '#37A2DA',
-  '#e06343',
-  '#37a354',
-  '#b55dba',
-  '#b5bd48',
-  '#8378EA',
-  '#96BFFF'
-];
+let COLOR_ALL = ['#37A2DA', '#e06343', '#37a354', '#b55dba', '#b5bd48', '#8378EA', '#96BFFF'];
 let pieces = [];
 for (let i = 0; i < CLUSTER_COUNT; i++) {
   pieces.push({
     value: i,
     label: 'cluster ' + i,
-    color: COLOR_ALL[i]
+    color: COLOR_ALL[i],
   });
 }
 let option = {
@@ -128,13 +116,13 @@ let option = {
         config: {
           clusterCount: CLUSTER_COUNT,
           outputType: 'single',
-          outputClusterIndexDimension: DIENSIION_CLUSTER_INDEX
-        }
-      }
-    }
+          outputClusterIndexDimension: DIENSIION_CLUSTER_INDEX,
+        },
+      },
+    },
   ],
   tooltip: {
-    position: 'top'
+    position: 'top',
   },
   visualMap: {
     type: 'piecewise',
@@ -144,29 +132,27 @@ let option = {
     left: 10,
     splitNumber: CLUSTER_COUNT,
     dimension: DIENSIION_CLUSTER_INDEX,
-    pieces: pieces
+    pieces: pieces,
   },
   grid: {
-    left: 120
+    left: 120,
   },
   xAxis: {},
   yAxis: {},
   series: {
     type: 'scatter',
-    name:'哈哈哈',
-    data:data,
+    name: '哈哈哈',
+    data: data,
     encode: { tooltip: [0, 1] },
     symbolSize: 50,
     itemStyle: {
-      borderColor: '#555'
+      borderColor: '#555',
     },
-    datasetIndex: 1
-  }
+    datasetIndex: 1,
+  },
 };
 
-
-
-export default class Quadrant extends Component{
+export default class Quadrant extends Component {
   // constructor(props){
   //   super(props);
   // }
@@ -175,19 +161,17 @@ export default class Quadrant extends Component{
     let chartDom = document.getElementById('main');
     this.myChart = echarts.init(chartDom);
     option && this.myChart.setOption(option);
-    this.myChart.on('click', (params)=> {
+    this.myChart.on('click', (params) => {
       // 控制台打印数据的名称
       console.log(params);
     });
   }
-  
+
   componentWillUnmount() {
     this.myChart.clear();
   }
 
-  render(){
-    return (
-    <div id="main" style = {{ width: '1000px',height: '500px' }}/>
-    );
+  render() {
+    return <div id="main" style={{ width: '1000px', height: '500px' }} />;
   }
 }

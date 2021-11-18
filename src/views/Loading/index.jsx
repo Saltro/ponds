@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Spin } from 'antd';
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export default class Loading extends Component {
   render() {
@@ -18,4 +18,4 @@ const SpinCotainer = styled.div`
   text-align: center;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
-`
+`;

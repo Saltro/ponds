@@ -22,6 +22,6 @@ export function reorderPonds(data) {
   return request({
     url: '/pond/reorder',
     method: 'post',
-    data
+    data,
   });
 }
