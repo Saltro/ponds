@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Scatter } from '@ant-design/charts';
 import { quadrantData } from '../../../../mock/quadrant-data';
-import { useTasks } from '../../../TaskPanel/components/Pond';
+import { useTasks } from '../../../TaskPanel/components/pond';
 import { useAuth } from '../../../../context/auth-context';
 import QuadrantUtil from '../../../../utils/QuadrantUtil';
 

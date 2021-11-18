@@ -4,10 +4,15 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { AuthContext } from '../../../context/auth-context';
 import '../index.css'
 
+const account = localStorage.getItem('account');
+
+
 
 class Login extends Component {
   state = {
     isLoading: false,
+    username: account ? JSON.parse(account).u : '',
+    password: account ? JSON.parse(account).p : ''
   };
 
   static contextType = AuthContext;
@@ -17,18 +22,27 @@ class Login extends Component {
     login(values);
   };
 
+
+
   Form() {
     return (
       <>
         <Form.Item
           name="username"
           rules={[{ required: true, message: 'Please input your Username!' }]}
+          initialValue={this.state.username}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username: admin or user" type="text" id="username" autoComplete="on" />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username: admin or user"
+            type="text"
+            id="username"
+            autoComplete="on"
+            allowClear />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[{ required: true, message: 'Please input your Password!' }]}
+          initialValue={this.state.password}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
@@ -36,6 +50,7 @@ class Login extends Component {
             placeholder="Password: ant.design"
             id="password"
             autoComplete="on"
+            allowClear
           />
         </Form.Item>
       </>
@@ -44,18 +59,19 @@ class Login extends Component {
 
   render() {
     const { isLoading } = this.context;
+
     return (
       <div style={{ width: 360 }}>
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{ remember: true }}
+          initialValues={{ remember: !!account }}
           onFinish={this.handleSubmit}
         >
           {this.Form()}
           <Form.Item >
             <div className="form">
-              <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Form.Item name="remember" valuePropName="checked" noStyle >
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
