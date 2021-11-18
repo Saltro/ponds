@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addTask } from '../../../../network/task';
+import { addTask } from '@/network/task';
 import { Card, Input, Button } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
 

@@ -3,8 +3,8 @@ import Login from './Login';
 import Register from './Register';
 import { Card, Divider, Button } from 'antd';
 import styled from '@emotion/styled';
-import left from '../../assets/left.svg';
-import right from '../../assets/right.svg';
+import left from '@/assets/left.svg';
+import right from '@/assets/right.svg';
 
 export default class UnauthenticatedApp extends Component {
   state = {

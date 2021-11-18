@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import * as auth from '../network/user';
-import { isExist, setToken, removeToken } from '../utils/auth';
+import * as auth from '@/network/user';
+import { isExist, setToken, removeToken } from '@/utils/auth';
 import { useQueryClient } from 'react-query';
 
 export const AuthContext = React.createContext(undefined);

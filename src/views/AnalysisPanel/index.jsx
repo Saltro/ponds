@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import AnalysisUtil from '../../utils/AnalysisUtil';
+import AnalysisUtil from '@/utils/AnalysisUtil';
 import Heatmap from './components/Heatmap';
 import { useDropHistory } from '../TaskPanel';
-import { useAuth } from '../../context/auth-context';
+import { useAuth } from '@/context/auth-context';
 import { Helmet } from 'react-helmet';
 import './index.css';
 

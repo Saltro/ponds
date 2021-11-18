@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../../../context/auth-context';
-import tplogo from '../../../assets/logo.svg';
+import { AuthContext } from '@/context/auth-context';
+import tplogo from '@/assets/logo.svg';
 import './index.css';
 
 export default class Menu extends Component {
