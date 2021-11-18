@@ -9,6 +9,7 @@ import CalenderCard from './components/CalenderCard/index';
 import TaskTraceCard from './components/TaskTraceCard/index';
 import { useDropHistory } from '../TaskPanel';
 import { useAuth } from '@/context/auth-context';
+import { useTasks } from '@/views/TaskPanel/components/Pond/index';
 import { Helmet } from 'react-helmet';
 import './index.css';
 
@@ -21,6 +22,7 @@ export default function () {
   const [heatmapValues, setHeatmapValues] = useState([]);
   const [allHistoryValues, setAllHistoryValues] = useState([]);
   const { user } = useAuth();
+  const tasks = useTasks(user.id);
 
   const curDate = new Date();
   const lastMonthDate = new Date(curDate - 31 * 24 * 60 * 60 * 1000);
@@ -29,18 +31,6 @@ export default function () {
     history,
     registerAt: user.registerAt || new Date(new Date() - 7 * 24 * 60 * 60 * 1000),
   });
-
-  const mockOperand = [
-    { id: 1, type: '计划池', time: '2021-11-01 11:11:11' },
-    { id: 2, type: '就绪池', time: '2021-11-01 11:11:11' },
-    { id: 3, type: '执行池', time: '2021-11-01 11:11:11' },
-    { id: 4, type: '验收池', time: '2021-11-01 11:11:11' },
-    { id: 5, type: '阻塞池', time: '2021-11-01 11:11:11' },
-    { id: 6, type: '就绪池', time: '2021-11-01 11:11:11' },
-    { id: 7, type: '执行池', time: '2021-11-01 11:11:11' },
-    { id: 8, type: '验收池', time: '2021-11-01 11:11:11' },
-    { id: 9, type: '完成池', time: '2021-11-01 11:11:11' },
-  ];
 
   useEffect(() => {
     analysis.history = history;
@@ -68,7 +58,13 @@ export default function () {
       </Helmet>
       <div id="analysis-panel">
         <div className="statistics-container">
-          <TaskTraceCard operand={mockOperand} />
+          <TaskTraceCard onSearch={(value) => {
+            const targetTask = tasks.find((task) => task.describe === value);
+            if (!targetTask) {
+              return [];
+            }
+            return analysis.getHistoryByTaskId(targetTask.id);
+          }} />
           <StatisticsCard
             statisticData={{
               executePerDayAvg,

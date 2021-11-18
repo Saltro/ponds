@@ -125,6 +125,22 @@ class AnalysisUtil {
 
     return res;
   }
+
+  getHistoryByTaskId(id) {
+    const { history } = this;
+    const res = [];
+
+    history.forEach(({ taskId, toId, dropTime }) => {
+      if (id === taskId) {
+        res.push({
+          time: new Date(dropTime),
+          type: pondNameZhCN[toId],
+        });
+      }
+    });
+
+    return res;
+  }
 }
 
 export default AnalysisUtil;
