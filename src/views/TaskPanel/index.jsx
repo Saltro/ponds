@@ -9,7 +9,9 @@ import { useAuth } from '../../context/auth-context';
 import { EditTaskModal } from './components/EditTask';
 import { reorderTasks } from '../../network/task';
 import { addHistory, getHistoryList } from '../../network/history';
+import { reorder } from '../../utils/reorder';
 import './idnex.css';
+import { Helmet } from 'react-helmet';
 
 const usePonds = () => {
   const { data: res } = useQuery(['ponds'], () => getPondList());
@@ -31,6 +33,7 @@ const useAddDropHistory = (queryKey) => {
 
 export const TaskPanel = () => {
   const { user } = useAuth();
+  console.log(user);
   const [taskId, setTaskId] = useState(0);
   const ponds = usePonds();
 
@@ -41,6 +44,9 @@ export const TaskPanel = () => {
   const onDragEnd = useDragEnd();
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <Helmet>
+        <title>TP-池子面板</title>
+      </Helmet>
       <ScreenContainer>
         <Drop type="COLUMN" direction="horizontal" droppableId="ponds-drop">
           <ColumnsContainer>
@@ -61,6 +67,18 @@ const useReorderPonds = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation((data) => reorderPonds(data), {
     onSuccess: () => queryClient.invalidateQueries(queryKey),
+    async onMutate(target) {
+      const previousItems = queryClient.getQueryData(queryKey);
+      queryClient.setQueryData(queryKey, (old) => {
+        // console.log('old', old)
+        // console.log('res', {...old, data: reorder({list: old?.data, ...target})})
+        return { ...old, data: reorder({ list: old?.data, ...target }) };
+      });
+      return { previousItems };
+    },
+    onError(error, newItem, context) {
+      queryClient.setQueryData(queryKey, context.previousItems);
+    },
   });
 };
 
@@ -68,6 +86,20 @@ const useReorderTasks = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation((data) => reorderTasks(data), {
     onSuccess: () => queryClient.invalidateQueries(queryKey),
+    async onMutate(target) {
+      const previousItems = queryClient.getQueryData(queryKey);
+      queryClient.setQueryData(queryKey, (old) => {
+        const orderedList = reorder({ list: old?.data, ...target });
+        const test = orderedList.map((item) =>
+          item.id === target.fromId ? { ...item, belong: target.toPondId } : item,
+        );
+        return { ...old, data: test };
+      });
+      return { previousItems };
+    },
+    onError(error, newItem, context) {
+      queryClient.setQueryData(queryKey, context.previousItems);
+    },
   });
 };
 
@@ -130,16 +162,16 @@ export const useDragEnd = () => {
 
 const ScreenContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
 `;
 
 const ColumnsContainer = styled(DropChild)`
   width: 100%;
-  flex: 1;
+  height: 100%;
+  overflow: hidden;
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
-  height: 100vh;
-  padding: 0.5rem;
-  overflow-x: scroll;
+  justify-content: space-between;
+  align-content: space-between;
 `;

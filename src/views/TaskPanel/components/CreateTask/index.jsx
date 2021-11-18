@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addTask } from '../../../../network/task';
-import { Card, Input } from 'antd';
+import { Card, Input, Button } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
-import styled from '@emotion/styled';
 
 const useAddTask = (queryKey) => {
   const queryClient = useQueryClient();
@@ -32,10 +31,10 @@ export const CreateTask = ({ belong, userId }) => {
 
   if (!inputMode) {
     return (
-      <CreateTaskContainer onClick={toggle}>
+      <Button type="dashed" block onClick={toggle}>
         <i className="iconfont icon-tianjia" style={{ fontStyle: '15px' }} />
         创建任务
-      </CreateTaskContainer>
+      </Button>
     );
   }
 
@@ -52,9 +51,3 @@ export const CreateTask = ({ belong, userId }) => {
     </Card>
   );
 };
-
-const CreateTaskContainer = styled.div`
-  background-color: white;
-  cursor: pointer;
-  text-align: center;
-`;

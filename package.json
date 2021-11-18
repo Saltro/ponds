@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^1.2.14",
+    "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -19,6 +20,7 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-query": "^3.32.3",
     "react-router": "^6.0.1",
     "react-router-dom": "^5.2.0",

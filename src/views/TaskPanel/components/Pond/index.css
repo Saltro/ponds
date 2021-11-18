@@ -1,77 +1,33 @@
-.pond {
-  /* width: calc((100vw - 8.2rem) / 5); */
-  min-width: 18vw;
-  height: calc((100vh - 2rem) / 2);
-  position: relative;
-  /*border: 1px solid black;*/
-  flex: 1;
-}
-
-/* 7.2rem = 4.2rem(menu) + 1rem(padding) + 2rem(margin) */
-/* .pond:nth-child(6) {
-  width: calc((100vw - 7.2rem) / 2);
-}
-
-.pond:nth-child(7) {
-  width: calc((100vw - 7.2rem) / 2);
-} */
-
-#task-header {
-  color: #2b344b;
-  padding: 1.2rem;
-  font-size: 1.5rem;
-  line-height: 1;
-  background: #ffffff;
-  border-radius: 0.4rem;
-  margin-bottom: 0.8rem;
-}
-
-#task-container {
-  /*position: absolute;*/
+.pond-header {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  max-height: calc(48vh - 8.5rem);
-  /*overflow: hidden;*/
-}
-#task-container:hover {
-  /*overflow-y: scroll;*/
-}
-#task-container::-webkit-scrollbar {
-  /*滚动条整体样式*/
-  width: 0.3rem; /*高宽分别对应横竖滚动条的尺寸*/
-  height: 0.3rem;
-  -webkit-appearance: none;
-}
-#task-container::-webkit-scrollbar-thumb {
-  /*滚动条里面小方块*/
-  border-radius: 3px;
-  background: rgba(42, 52, 75, 0.1);
-}
-#task-container::-webkit-scrollbar-track {
-  /*滚动条里面轨道*/
-  background: 0 0 !important;
-  border-radius: 3px;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-#add-task {
-  /*position: absolute;*/
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 3rem;
-  padding: 1.2rem;
-  color: #616e8f;
-  background: #ffffff;
-  margin-top: 0.8rem;
-  border-radius: 0.4rem;
-  cursor: pointer;
+.plan-pond {
+  color: rgba(255, 235, 59, 1);
 }
 
-.ant-empty {
-  width: 100%;
+.ready-pond {
+  color: rgba(255, 195, 0, 1);
+}
+
+.accept-pond {
+  color: rgba(255, 141, 26, 1);
+}
+
+.bock-pond {
+  color: rgba(42, 130, 228, 1);
+}
+
+.sauce-pond {
+  color: rgba(172, 51, 193, 1);
+}
+
+.execute-pond {
+  color: rgba(212, 48, 48, 1);
+}
+
+.finish-pond {
+  color: rgba(67, 207, 124, 1);
 }
