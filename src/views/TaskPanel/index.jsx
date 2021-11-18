@@ -39,6 +39,7 @@ const useAddDropHistory = (queryKey) => {
 
 export const TaskPanel = () => {
   const {user} = useAuth()
+  console.log(user);
   const [taskId, setTaskId] = useState(0)
   const ponds = usePonds()
 
