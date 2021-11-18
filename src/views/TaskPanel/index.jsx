@@ -11,6 +11,7 @@ import {reorderTasks} from "../../network/task";
 import {addHistory, getHistoryList} from "../../network/history";
 import {reorder} from "../../utils/reorder";
 import './idnex.css'
+import {Helmet} from "react-helmet";
 
 const usePonds = () => {
   const {data: res} = useQuery(['ponds'], () =>
@@ -48,6 +49,9 @@ export const TaskPanel = () => {
   const onDragEnd = useDragEnd();
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <Helmet>
+        <title>TP-池子面板</title>
+      </Helmet>
       <ScreenContainer>
         <Drop type='COLUMN' direction='horizontal' droppableId='ponds-drop'>
           <ColumnsContainer>

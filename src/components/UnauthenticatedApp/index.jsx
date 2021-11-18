@@ -5,6 +5,7 @@ import {Card, Divider, Button} from "antd";
 import styled from "@emotion/styled";
 import left from '../../assets/left.svg'
 import right from '../../assets/right.svg'
+import {Helmet} from "react-helmet";
 
 export default class UnauthenticatedApp extends Component {
   state = {
@@ -21,6 +22,9 @@ export default class UnauthenticatedApp extends Component {
     const {isRegister} = this.state
     return (
       <Container>
+        <Helmet>
+          <title>TP-登陆注册</title>
+        </Helmet>
         <Header />
         <Background />
         <ShadowCard>
