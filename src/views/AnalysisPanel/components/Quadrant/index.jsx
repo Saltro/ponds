@@ -3,16 +3,14 @@ import { Scatter } from '@ant-design/charts';
 import { useTasks } from '@/views/TaskPanel/components/Pond';
 import { useAuth } from '@/context/auth-context';
 import QuadrantUtil from '@/utils/QuadrantUtil';
+import './index.css';
 
 export default function index(props) {
+  const { height } = props;
   const { user } = useAuth();
   const tasks = useTasks(user.id);
-  const [data, setData] = useState(tasks);
+  const [data, setData] = useState([]);
   const quarantUtil = new QuadrantUtil(tasks);
-  const {
-    width,
-    height
-  } = props;
 
   useEffect(() => {
     quarantUtil.tasks = tasks;
@@ -20,8 +18,6 @@ export default function index(props) {
   }, [tasks]);
 
   const config = {
-    width,
-    height,
     data,
     xField: 'x',
     yField: 'y',
@@ -31,18 +27,18 @@ export default function index(props) {
       fillOpacity: 0.8,
       stroke: '#eee',
     },
-    size: 4,
+    size: 6,
     xAxis: {
       min: -6,
       max: 6,
-      grid: { line: { style: { stroke: '#eee' } } },
-      line: { style: { stroke: '#aaa' } },
+      grid: { line: { style: { stroke: '#ddd', lineDash: [5, 5], opacity: 0.9 } } },
+      line: { style: { stroke: '#aaa', opacity: 0.8 } },
     },
     yAxis: {
       min: -6,
       max: 6,
-      grid: { line: { style: { stroke: '#eee' } } },
-      line: { style: { stroke: '#aaa' } },
+      grid: { line: { style: { stroke: '#ddd', lineDash: [5, 5], opacity: 0.9 } } },
+      line: { style: { stroke: '#aaa', opacity: 0.8 } },
     },
     quadrant: {
       xBaseline: 0,
@@ -104,5 +100,16 @@ export default function index(props) {
     },
   };
 
-  return <Scatter {...config} />;
+  return (
+    <div id="quadrant-container" style={{
+      height: height,
+    }}>
+      <span className="chart-style">任务四象限图</span>
+      {/* ant design charts 高度为inherit，所以在外面套一个div来改变高度 */}
+      {/* 减去span的高度 */}
+      <div style={{height: height - 31}}>
+        <Scatter {...config} />
+      </div>
+    </div>
+  );
 }

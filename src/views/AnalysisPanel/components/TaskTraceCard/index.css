@@ -1,0 +1,11 @@
+.taskTrace-card {
+  background-color: #ffffff;
+  margin: 0.5rem;
+  padding: 3rem 0.5rem 0.5rem 0.5rem;
+}
+
+.title-style {
+  margin: 1rem;
+  font-size: medium;
+  font-weight: 700;
+}

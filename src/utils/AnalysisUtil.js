@@ -1,4 +1,4 @@
-import { pondId } from './common';
+import { pondId, pondNameZhCN } from './common';
 
 class AnalysisUtil {
   constructor({ history, registerAt }) {
@@ -53,7 +53,7 @@ class AnalysisUtil {
     return this.history.reduce((acc, { toId }) => (toId === pondId['finish-pond'] ? acc + 1 : acc), 0);
   }
 
-  getValuesFrom(date) {
+  getHeatmapValuesFrom(date) {
     const { history } = this;
     const value = new Map();
 
@@ -78,6 +78,50 @@ class AnalysisUtil {
     for (const item of value.values()) {
       res.push(item);
     }
+
+    return res;
+  }
+
+  getAllHistoryValuesFrom(date) {
+    const { history } = this;
+    const value = {};
+
+    history.forEach(({ dropTime: d, toId }) => {
+      const dropDate = d.slice(0, 10);
+      if (new Date(dropDate) >= date) {
+        if (value.hasOwnProperty(dropDate)) {
+          if (value[dropDate].hasOwnProperty(toId)) {
+            value[dropDate][toId].count += 1;
+          } else {
+            value[dropDate][toId] = {
+              count: 1,
+            };
+          }
+        } else {
+          value[dropDate] = {};
+          value[dropDate][toId] = {
+            count: 1,
+          };
+        }
+      }
+    });
+
+    const res = [];
+    for (const date in value) {
+      if (Object.prototype.hasOwnProperty.call(value, date)) {
+        for (const toId in value[date]) {
+          if (Object.prototype.hasOwnProperty.call(value[date], toId)) {
+            res.push({
+              date: date,
+              belong: pondNameZhCN[toId],
+              count: value[date][toId].count,
+            });
+          }
+        }
+      }
+    }
+
+    console.log(res);
 
     return res;
   }

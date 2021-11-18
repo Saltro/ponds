@@ -1,43 +1,36 @@
-import { useState } from 'react';
-import CalendarHeatmap from 'react-calendar-heatmap';
-import Popover from '../Popover';
+import React, { useState } from 'react';
 import './index.css';
+import CalendarHeatmap from 'react-calendar-heatmap';
+import 'react-calendar-heatmap/dist/styles.css';
+import Popover from '../Popover';
 
-export default function index({ heatmapValues, lastYearDate, curDate }) {
+const CalenderCard = (props) => {
+  const { values, startDate, endDate } = props;
   const [popoverTop, setPopoverTop] = useState(0);
   const [popoverLeft, setPopoverLeft] = useState(0);
   const [popoverContent, setPopoverContent] = useState('');
   const [popoverVisibility, setPopoverVisibility] = useState(false);
 
+  const monthLabels = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May.', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
+
+  const weekDayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
   return (
-    <div id="calendar-heatmap">
+    <div className="calender-card">
       <Popover content={popoverContent} top={popoverTop} left={popoverLeft} visibility={popoverVisibility} />
+      <span className="title-style">本月任务总操作情况</span>
       <CalendarHeatmap
-        values={heatmapValues}
-        startDate={lastYearDate}
-        endDate={curDate}
-        monthLabels={[
-          '1 月',
-          '2 月',
-          '3 月',
-          '4 月',
-          '5 月',
-          '6 月',
-          '7 月',
-          '8 月',
-          '9 月',
-          '10 月',
-          '11 月',
-          '12 月',
-        ]}
-        weekdayLabels={['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat']}
+        values={values}
+        startDate={startDate}
+        endDate={endDate}
+        monthLabels={monthLabels}
+        weekdayLabels={weekDayLabels}
         showWeekdayLabels
-        gutterSize={2}
+        gutterSize={0.5}
         showOutOfRangeDays
         classForValue={(value) => {
-          if (value === null) {
-            return 'color-rect color-empty';
-          }
+          if (value === null || value.count === 0) return 'color-empty';
+
           const colorMapIdx = [0, 5, 10, 15, 20, 25].filter((item) => item <= value.count).length;
           return 'color-rect ' + (colorMapIdx <= 0 ? 'color-empty' : `color-scale-${colorMapIdx}`);
         }}
@@ -60,4 +53,6 @@ export default function index({ heatmapValues, lastYearDate, curDate }) {
       />
     </div>
   );
-}
+};
+
+export default CalenderCard;
