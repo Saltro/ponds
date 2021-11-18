@@ -24,12 +24,10 @@ const TaskTraceCard = (props) => {
       <Modal
         title={`操作记录 ${searchValue}`}
         visible={isVisible}
-        onOk={() => {
-          setIsVisible(false);
-        }}
         onCancel={() => {
           setIsVisible(false);
         }}
+        footer={null}
       >
         <List
           itemLayout="horizontal"
