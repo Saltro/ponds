@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { Pond, useTasks } from './components/Pond';
+import { Pond, useTasks } from './components/pond';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Drag, Drop, DropChild } from '@/components/DragAndDrop';

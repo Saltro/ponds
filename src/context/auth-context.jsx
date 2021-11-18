@@ -31,6 +31,13 @@ export const AuthProvider = ({ children }) => {
         setToken(user.token);
         setUser(user);
         setIsLoading(false);
+        console.log(form);
+        if (form.remember) {
+          let info = JSON.stringify({ u: form.username, p: form.password });
+          localStorage.setItem('account', info);
+        } else {
+          localStorage.removeItem('account');
+        }
       })
       .catch((err) => {
         setIsLoading(false);
