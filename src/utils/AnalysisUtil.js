@@ -104,7 +104,7 @@ class AnalysisUtil {
     history.forEach(({ dropTime: d, toId }) => {
       if (new Date(d) >= date) {
         const dropDate = d.slice(0, 10);
-        console.log(value[dropDate][toId]);
+        // console.log(value[dropDate][toId]);
         value[dropDate][toId].count += 1;
       }
     });
