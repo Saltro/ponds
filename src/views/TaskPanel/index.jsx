@@ -165,14 +165,14 @@ const ScreenContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: auto;
+  border-radius: 6px;
 `;
 
 const ColumnsContainer = styled(DropChild)`
   width: 100%;
   height: 100%;
-  overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: space-between;
+  gap: 2rem;
 `;

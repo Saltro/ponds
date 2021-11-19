@@ -105,16 +105,19 @@ export const Pond = React.forwardRef(({ pond, user, toggleEditModal, ...props },
 });
 
 const Container = styled.div`
-  width: calc((100vw - 9.2rem) / 4);
+  // width: calc((100vw - 9.2rem) / 4);
   height: calc((100vh - 4rem) * 10 / 17);
+  // 至多一排 4 个池
+  min-width: calc((100vw - 4.2rem - 1rem - 2rem - 2rem - 2rem - 1rem) / 4);
   border-radius: 6px;
   background-color: rgb(255, 255, 255);
+  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 0.7rem 0.7rem 1rem;
   :nth-last-of-type(-n + 3) {
-    width: calc((100vw - 9.2rem) / 3);
-    height: calc((100vh - 4rem) * 7 / 17);
+    // width: calc((100vw - 9.2rem) / 3);
+    // height: calc((100vh - 4rem) * 7 / 17);
   }
 `;
 
