@@ -47,7 +47,7 @@ export default function () {
     if (node) {
       // 内容区减去中间gap的高度的一半
       setChartsSubContainerHeight((node.clientHeight - 20 - 12) / 2);
-      console.log((node.clientHeight - 20) / 2);
+      // console.log((node.clientHeight - 20) / 2);
     }
   }, []);
 

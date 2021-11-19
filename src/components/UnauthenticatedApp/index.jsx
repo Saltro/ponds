@@ -11,7 +11,7 @@ import './index.css';
 const { TabPane } = Tabs;
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 class UnauthenticatedApp extends Component {

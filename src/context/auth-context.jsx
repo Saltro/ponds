@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
         setToken(user.token);
         setUser(user);
         setIsLoading(false);
-        console.log(form);
         if (form.remember) {
           let info = JSON.stringify({ u: form.username, p: form.password });
           localStorage.setItem('account', info);
@@ -45,18 +44,22 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  // 注册还没搞
-  const register = (form) =>
+  // 注册
+  const register = (form) =>{
+    setIsLoading(true);
     auth
       .register(form)
       .then((res) => {
         const user = res?.data;
         setToken(user.token);
         setUser(user);
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err, 'register响应拦截器返回的Promise.reject()被我抓到啦~');
       });
+  }
 
   const logout = () => {
     removeToken();

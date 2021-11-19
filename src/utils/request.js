@@ -16,7 +16,7 @@ service.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject(error);
   },
 );
@@ -26,18 +26,18 @@ service.interceptors.response.use(
     const res = response.data;
     if (res.code !== 0) {
       message.error({
-        content: res.message || 'Error',
+        content: res.msg || 'Error',
         duration: 5,
       });
 
       if (res.code === -2) {
         // to re-login
         message.warning({
-          content: res.message || 'Token过期，请重新登陆！',
+          content: res.msg || 'Token过期，请重新登陆！',
           duration: 5,
         });
       }
-      return Promise.reject(new Error(res.message || 'Error'));
+      return Promise.reject(new Error(res.msg || 'Error'));
     } else {
       return res;
     }

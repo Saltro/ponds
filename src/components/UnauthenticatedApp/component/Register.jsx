@@ -1,11 +1,18 @@
 import { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { AuthContext } from '@/context/auth-context';
 import '../index.css'
 
 
 class Register extends Component {
 
+  static contextType = AuthContext;
+
+  handleSubmit = (values) => {
+    const { register } = this.context;
+    register(values);
+  };
 
   Form() {
     return (
@@ -33,17 +40,20 @@ class Register extends Component {
   }
 
   render() {
+    const { isLoading } = this.context;
+
     return (
       <div style={{ width: 360 }}>
         <Form
           name="normal_login"
           className="login-form"
           initialValues={{ remember: true }}
+          onFinish={this.handleSubmit}
         >
           {this.Form()}
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button" >
+            <Button type="primary" htmlType="submit" className="login-form-button" loading={isLoading}>
               Sign Up
             </Button>
           </Form.Item>

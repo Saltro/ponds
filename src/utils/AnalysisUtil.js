@@ -121,7 +121,7 @@ class AnalysisUtil {
       }
     }
 
-    console.log(res);
+    // console.log(res);
 
     return res;
   }

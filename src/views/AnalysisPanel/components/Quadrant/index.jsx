@@ -54,7 +54,7 @@ export default function index(props) {
       showTitle: true,
       showMarkers: false,
       customContent: (title, items) => {
-        console.log(title, items);
+        // console.log(title, items);
         const data = items[0]?.data ?? { urgency: 0, importance: 0, belong: '', describe: '' };
         const tooltipItems = [
           { label: '紧急性', value: data.urgency },

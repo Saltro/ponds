@@ -22,8 +22,6 @@ class Login extends Component {
     login(values);
   };
 
-
-
   Form() {
     return (
       <>

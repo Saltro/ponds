@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { Pond, useTasks } from './components/pond';
+import { Pond, useTasks } from './components/Pond';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Drag, Drop, DropChild } from '@/components/DragAndDrop';
@@ -33,7 +33,7 @@ const useAddDropHistory = (queryKey) => {
 
 export const TaskPanel = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   const [taskId, setTaskId] = useState(0);
   const ponds = usePonds();
 
