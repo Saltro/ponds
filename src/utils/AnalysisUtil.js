@@ -84,25 +84,24 @@ class AnalysisUtil {
 
   getAllHistoryValuesFrom(date) {
     const { history } = this;
+    const curDate = new Date();
     const value = {};
+    // eslint-disable-next-line no-unmodified-loop-condition
+    for (const time = new Date(date); time <= curDate; time.setDate(time.getDate() + 1)) {
+      const timeStr = time.toISOString().slice(0, 10);
+      value[timeStr] = {};
+      for (let belong = 1; belong <= 7; belong++) {
+        value[timeStr][belong] = {
+          count: 0,
+        };
+      }
+    }
 
     history.forEach(({ dropTime: d, toId }) => {
-      const dropDate = d.slice(0, 10);
-      if (new Date(dropDate) >= date) {
-        if (value.hasOwnProperty(dropDate)) {
-          if (value[dropDate].hasOwnProperty(toId)) {
-            value[dropDate][toId].count += 1;
-          } else {
-            value[dropDate][toId] = {
-              count: 1,
-            };
-          }
-        } else {
-          value[dropDate] = {};
-          value[dropDate][toId] = {
-            count: 1,
-          };
-        }
+      if (new Date(d) >= date) {
+        const dropDate = d.slice(0, 10);
+        console.log(value[dropDate][toId])
+        value[dropDate][toId].count += 1;
       }
     });
 
