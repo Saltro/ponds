@@ -55,28 +55,32 @@ class AnalysisUtil {
 
   getHeatmapValuesFrom(date) {
     const { history } = this;
+    const curDate = new Date();
     const value = new Map();
 
+    // eslint-disable-next-line no-unmodified-loop-condition
+    for (const time = new Date(date); time <= curDate; time.setDate(time.getDate() + 1)) {
+      const timeStr = time.toISOString().slice(0, 10);
+      value[timeStr] = {
+        count: 0,
+      };
+    }
+
     history.forEach(({ dropTime: d }) => {
-      const dropDate = new Date(d.slice(0, 10));
-      if (dropDate >= date) {
-        if (value.has(dropDate.getTime())) {
-          value.set(dropDate.getTime(), {
-            date: d.slice(0, 10),
-            count: value.get(dropDate.getTime()).count + 1,
-          });
-        } else {
-          value.set(dropDate.getTime(), {
-            date: d.slice(0, 10),
-            count: 1,
-          });
-        }
+      if (new Date(d) >= date) {
+        const dropDate = d.slice(0, 10);
+        value[dropDate].count += 1;
       }
     });
 
     const res = [];
-    for (const item of value.values()) {
-      res.push(item);
+    for (const date in value) {
+      if (Object.prototype.hasOwnProperty.call(value, date)) {
+        res.push({
+          date: date,
+          count: value[date].count,
+        });
+      }
     }
 
     return res;
@@ -100,7 +104,7 @@ class AnalysisUtil {
     history.forEach(({ dropTime: d, toId }) => {
       if (new Date(d) >= date) {
         const dropDate = d.slice(0, 10);
-        console.log(value[dropDate][toId])
+        console.log(value[dropDate][toId]);
         value[dropDate][toId].count += 1;
       }
     });

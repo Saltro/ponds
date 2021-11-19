@@ -28,7 +28,7 @@ export default function () {
   const lastMonthDate = new Date();
   const valueLastMonthDate = new Date();
   lastMonthDate.setDate(curDate.getDate() - 31);
-  valueLastMonthDate.setDate(lastMonthDate.getDate() - 7);
+  valueLastMonthDate.setDate(curDate.getDate() - 31 - 7);
   console.log(lastMonthDate, valueLastMonthDate);
   const analysis = new AnalysisUtil({
     history,
