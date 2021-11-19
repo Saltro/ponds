@@ -14,7 +14,6 @@ import { Helmet } from 'react-helmet';
 import './index.css';
 
 export default function () {
-  const history = useDropHistory() || [];
   const [executePerDayAvg, setExecutePerDayAvg] = useState(0);
   // const [finishPerWeekAvg, setFinishPerWeekAvg] = useState(0);
   const [numberOfExecutingDays, setNumberOfExecutingDays] = useState(0);
@@ -23,13 +22,17 @@ export default function () {
   const [allHistoryValues, setAllHistoryValues] = useState([]);
   const { user } = useAuth();
   const tasks = useTasks(user.id);
+  const history = useDropHistory(user.id) || [];
 
   const curDate = new Date();
-  const lastMonthDate = new Date(curDate - 31 * 24 * 60 * 60 * 1000);
-  const valueLastMonthDate = new Date(lastMonthDate - 7 * 24 * 60 * 60 * 1000);
+  const lastMonthDate = new Date();
+  const valueLastMonthDate = new Date();
+  lastMonthDate.setDate(curDate.getDate() - 31);
+  valueLastMonthDate.setDate(lastMonthDate.getDate() - 7);
+  console.log(lastMonthDate, valueLastMonthDate);
   const analysis = new AnalysisUtil({
     history,
-    registerAt: user.registerAt || new Date(new Date() - 7 * 24 * 60 * 60 * 1000),
+    registerAt: new Date(user.registerAt) || new Date(curDate - 7 * 1000 * 60 * 60 * 24),
   });
 
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function () {
     setNumberOfExecutingDays(analysis.numberOfExecutingDays());
     setAccumulatedFinished(analysis.accumulatedFinished());
     setHeatmapValues(analysis.getHeatmapValuesFrom(valueLastMonthDate));
-    setAllHistoryValues(analysis.getAllHistoryValuesFrom(valueLastMonthDate));
+    setAllHistoryValues(analysis.getAllHistoryValuesFrom(lastMonthDate));
   }, [history]);
 
   const [chartsSubContainerHeight, setChartsSubContainerHeight] = useState(0);
@@ -58,13 +61,15 @@ export default function () {
       </Helmet>
       <div id="analysis-panel">
         <div className="statistics-container">
-          <TaskTraceCard onSearch={(value) => {
-            const targetTask = tasks.find((task) => task.describe === value);
-            if (!targetTask) {
-              return [];
-            }
-            return analysis.getHistoryByTaskId(targetTask.id);
-          }} />
+          <TaskTraceCard
+            onSearch={(value) => {
+              const targetTask = tasks.find((task) => task.describe === value);
+              if (!targetTask) {
+                return [];
+              }
+              return analysis.getHistoryByTaskId(targetTask.id);
+            }}
+          />
           <StatisticsCard
             statisticData={{
               executePerDayAvg,
