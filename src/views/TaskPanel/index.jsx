@@ -48,7 +48,7 @@ export const TaskPanel = () => {
         <title>TP-池子面板</title>
       </Helmet>
       <ScreenContainer>
-        <Drop type="COLUMN" direction="horizontal" droppableId="ponds-drop">
+         <Drop type="COLUMN" direction="horizontal" droppableId="ponds-drop">
           <ColumnsContainer>
             {ponds?.map((pond, idx) => (
               <Drag key={pond.id} draggableId={pond.id + 'drag'} index={idx}>
@@ -56,7 +56,7 @@ export const TaskPanel = () => {
               </Drag>
             ))}
           </ColumnsContainer>
-        </Drop>
+         </Drop>
         <EditTaskModal taskId={taskId} toggleEditModal={toggleEditModal} />
       </ScreenContainer>
     </DragDropContext>
@@ -119,14 +119,15 @@ export const useDragEnd = () => {
 
       // 池子排序
       if (type === 'COLUMN') {
-        const fromId = ponds?.[source.index].sort;
-        const toId = ponds?.[destination.index].sort;
-        const tag = ponds?.[source.index].id;
-        if (!fromId || !toId || fromId === toId) {
-          return;
-        }
-        const type = destination.index > source.index ? 'after' : 'before';
-        reorderPonds({ fromId, referenceId: toId, tag, type });
+        return
+        // const fromId = ponds?.[source.index].sort;
+        // const toId = ponds?.[destination.index].sort;
+        // const tag = ponds?.[source.index].id;
+        // if (!fromId || !toId || fromId === toId) {
+        //   return;
+        // }
+        // const type = destination.index > source.index ? 'after' : 'before';
+        // reorderPonds({ fromId, referenceId: toId, tag, type });
       }
 
       // 任务排序

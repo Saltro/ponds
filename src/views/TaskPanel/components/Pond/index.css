@@ -2,32 +2,44 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+  color: #262626;
 }
 
 .plan-pond {
-  color: rgba(255, 235, 59, 1);
+  /*color: #161d40;*/
+  font-weight: 700;
 }
 
 .ready-pond {
-  color: rgba(255, 195, 0, 1);
+  /*color: #441d12;*/
+  font-weight: 700;
 }
 
 .accept-pond {
-  color: rgba(255, 141, 26, 1);
+  /*color: #40162f;*/
+  font-weight: 700;
 }
 
 .bock-pond {
-  color: rgba(42, 130, 228, 1);
+  /*color: rgba(42, 130, 228, 1);*/
+  font-weight: 700;
 }
 
 .sauce-pond {
-  color: rgba(172, 51, 193, 1);
+  /*color: rgba(172, 51, 193, 1);*/
+  font-weight: 700;
 }
 
 .execute-pond {
-  color: rgba(212, 48, 48, 1);
+  /*color: rgba(212, 48, 48, 1);*/
+  font-weight: 700;
 }
 
 .finish-pond {
-  color: rgba(67, 207, 124, 1);
+  /*color: rgba(67, 207, 124, 1);*/
+  font-weight: 700;
+}
+
+.pond-title-emoji {
+  font-weight: normal;
 }

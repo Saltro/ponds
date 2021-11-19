@@ -17,9 +17,22 @@ const customIcons = {
   4: <FrownOutlined />,
   5: <FrownOutlined />,
 };
+const emojiMap = {
+  1: '💡',
+  2: '📌',
+  3: '📆',
+  4: '⏳',
+  5: '📝',
+  6: '🧭',
+  7: '🎉'
+}
 
 const TaskCard = (props) => {
   const { task, toggleEditModal } = props;
+  const starMap = (val) => {
+    const m = [[0,-5], [0.5,-4], [1,-3], [1.5,-2], [2,-1],[2.5,0],[3,1],[3.5,2],[4,3],[4.5,4],[5,5]]
+    return m.find(item => item[1] === val)[0]
+  }
 
   return (
     <Card
@@ -29,13 +42,20 @@ const TaskCard = (props) => {
     >
       <div>{task.describe}</div>
       <div>
-        <Rate tooltips={importanceDesc} disabled value={task.importance} />
-        <br />
+        <Rate
+          tooltips={importanceDesc}
+          disabled
+          value={starMap(task.importance)}
+          allowHalf
+          style={{fontSize:'1rem', marginRight:'1.5rem'}}
+        />
         <Rate
           tooltips={urgencyDesc}
-          value={task.urgency}
+          value={starMap(task.urgency)}
           disabled
+          allowHalf
           character={({ index }) => customIcons[index + 1]}
+          style={{fontSize:'1rem'}}
         />
       </div>
     </Card>
@@ -59,7 +79,7 @@ export const Pond = React.forwardRef(({ pond, user, toggleEditModal, ...props },
     <Container {...props} ref={ref}>
       <div className={`pond-header ${pond.name_en}`}>
         <div className="pond-title" style={{ fontSize: '1.8rem' }}>
-          {pond.name_cn + ' '}
+          <span className='pond-title-emoji'>{emojiMap[pond.id]}</span>{pond.name_cn + ' '}
           <Tooltip placement="rightTop" title={pond.info}>
             <QuestionCircleOutlined style={{ fontSize: '1.5rem' }} />
           </Tooltip>
