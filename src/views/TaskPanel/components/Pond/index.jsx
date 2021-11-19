@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useQuery } from 'react-query';
 import styled from '@emotion/styled';
 import { Card, Tooltip, Rate } from 'antd';
@@ -29,11 +29,11 @@ const TaskCard = (props) => {
     >
       <div>{task.describe}</div>
       <div>
-        <Rate tooltips={importanceDesc} disabled defaultValue={task.importance} />
+        <Rate tooltips={importanceDesc} disabled value={task.importance} />
         <br />
         <Rate
           tooltips={urgencyDesc}
-          defaultValue={task.urgency}
+          value={task.urgency}
           disabled
           character={({ index }) => customIcons[index + 1]}
         />
@@ -49,7 +49,11 @@ export const useTasks = (id) => {
 
 export const Pond = React.forwardRef(({ pond, user, toggleEditModal, ...props }, ref) => {
   const res = useTasks(user.id);
-  const tasks = res?.filter((task) => task.belong === pond.id) ?? [];
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    setTasks(res?.filter((task) => task.belong === pond.id) ?? [])
+  }, [res])
 
   return (
     <Container {...props} ref={ref}>

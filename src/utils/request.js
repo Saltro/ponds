@@ -39,6 +39,12 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.msg || 'Error'));
     } else {
+      if (res.msg?.search(/更新/)!== -1) {
+        message.success({
+          content: res.msg || '成功啦！',
+          duration: 5
+        })
+      }
       return res;
     }
   },

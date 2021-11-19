@@ -12,7 +12,7 @@ const useTask = (id) => {
 const useEditTask = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation((params) => editTask(params), {
-    onSuccess: () => queryClient.invalidateQueries(queryKey),
+    onSuccess: () => queryClient.invalidateQueries(queryKey)
   });
 };
 
