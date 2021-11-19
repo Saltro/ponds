@@ -116,8 +116,8 @@ const Container = styled.div`
   flex-direction: column;
   padding: 0.7rem 0.7rem 1rem;
   :nth-last-of-type(-n + 3) {
-    // width: calc((100vw - 9.2rem) / 3);
-    // height: calc((100vh - 4rem) * 7 / 17);
+     width: calc((100vw - 9.2rem) / 3);
+     height: calc((100vh - 4rem) * 7 / 17);
   }
 `;
 

@@ -21,7 +21,7 @@ class Register extends Component {
           name="username"
           rules={[{ required: true, message: 'Please input your Username!' }]}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username: admin or user" type="text" id="username" autoComplete="on" />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="体验用户: testuser" type="text" id="username" autoComplete="on" />
         </Form.Item>
         <Form.Item
           name="password"
@@ -30,7 +30,7 @@ class Register extends Component {
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password: ant.design"
+            placeholder="体验密码: testuser"
             id="password"
             autoComplete="on"
           />

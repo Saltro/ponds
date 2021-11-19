@@ -31,7 +31,7 @@ class Login extends Component {
           initialValue={this.state.username}
         >
           <Input prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username: admin or user"
+            placeholder="体验用户: testuser"
             type="text"
             id="username"
             autoComplete="on"
@@ -45,7 +45,7 @@ class Login extends Component {
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password: ant.design"
+            placeholder="体验密码：testuser"
             id="password"
             autoComplete="on"
             allowClear

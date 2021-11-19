@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import styled from '@emotion/styled';
 import { Pond, useTasks } from './components/Pond';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -43,23 +43,23 @@ export const TaskPanel = () => {
 
   const onDragEnd = useDragEnd();
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Helmet>
-        <title>TP-池子面板</title>
-      </Helmet>
-      <ScreenContainer>
-         <Drop type="COLUMN" direction="horizontal" droppableId="ponds-drop">
-          <ColumnsContainer>
-            {ponds?.map((pond, idx) => (
-              <Drag key={pond.id} draggableId={pond.id + 'drag'} index={idx}>
-                <Pond toggleEditModal={toggleEditModal} pond={pond} user={user} />
-              </Drag>
-            ))}
-          </ColumnsContainer>
-         </Drop>
-        <EditTaskModal taskId={taskId} toggleEditModal={toggleEditModal} />
-      </ScreenContainer>
-    </DragDropContext>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Helmet>
+          <title>TP-池子面板</title>
+        </Helmet>
+        <ScreenContainer>
+          <Drop type="COLUMN" direction="horizontal" droppableId="ponds-drop">
+            <ColumnsContainer>
+              {ponds?.map((pond, idx) => (
+                <Drag key={pond.id} draggableId={pond.id + 'drag'} index={idx}>
+                  <Pond toggleEditModal={toggleEditModal} pond={pond} user={user} />
+                </Drag>
+              ))}
+            </ColumnsContainer>
+          </Drop>
+          <EditTaskModal taskId={taskId} toggleEditModal={toggleEditModal} />
+        </ScreenContainer>
+  </DragDropContext>
   );
 };
 
@@ -165,7 +165,6 @@ const ScreenContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: auto;
   border-radius: 6px;
 `;
 
